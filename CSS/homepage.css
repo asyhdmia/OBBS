@@ -1,0 +1,43 @@
+body {
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+}
+
+header {
+    background-color: #808080; /* Gray background color for header */
+    color: #fff;
+    text-align: center;
+    padding: 10px 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+footer {
+    background-color: #808080; /* Gray background color for footer */
+    color: #fff;
+    text-align: center;
+    padding: 10px 0;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+button {
+    padding: 10px 20px;
+    background-color: #ff0000; /* Red background color for buttons */
+    color: #fff;
+    border: none;
+    border-radius: 50px; /* Round shape for buttons */
+    cursor: pointer;
+    margin: 5px;
+}
+
+button.about-faqs {
+    background-color: #fff; /* White background color for About and FAQs buttons */
+    color: #000; /* Black font color for About and FAQs buttons */
+}
