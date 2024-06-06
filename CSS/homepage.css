@@ -16,11 +16,7 @@ header {
     align-items: center;
     z-index: 999;
   }
-  
-  header div {
-    display: flex; /* Use flexbox for inner alignment */
-  }
-  
+
   .login,
   .signup {
     margin-right: 10px; /* Adjust spacing between buttons */
