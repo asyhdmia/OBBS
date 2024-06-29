@@ -2,7 +2,7 @@ document.addEventListener('DOMContentLoaded', async (event) => {
     const selectElement = document.getElementById('appointment-date');
 
     try {
-        const response = await fetch('http://localhost/test/appointmentpage.php?action=available-dates');
+        const response = await fetch('http://localhost/OBBS/Project_obbs/appointmentpage.php?action=available-dates');
         const data = await response.json();
         data.dates.forEach(date => {
             const option = document.createElement('option');
@@ -24,7 +24,7 @@ async function bookAppointment() {
     const selectedDate = document.getElementById('appointment-date').value;
 
     try {
-        const response = await fetch('http://localhost/test/appointmentpage.php', {
+        const response = await fetch('http://localhost/OBBS/Project_obbs/appointmentpage.php', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/x-www-form-urlencoded'
