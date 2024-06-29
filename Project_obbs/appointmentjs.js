@@ -3,6 +3,9 @@ document.addEventListener('DOMContentLoaded', async (event) => {
 
     try {
         const response = await fetch('http://localhost/OBBS/Project_obbs/appointmentpage.php?action=available-dates');
+        if (!response.ok) {
+            throw new Error('Network response was not ok ' + response.statusText);
+        }
         const data = await response.json();
         data.dates.forEach(date => {
             const option = document.createElement('option');
@@ -32,6 +35,9 @@ async function bookAppointment() {
             },
             body: `action=book-appointment&donor_id=${donorId}&date=${selectedDate}`
         });
+        if (!response.ok) {
+            throw new Error('Network response was not ok ' + response.statusText);
+        }
         const data = await response.json();
         if (data.message) {
             alert(data.message);
@@ -52,6 +58,9 @@ async function viewAppointments() {
 
     try {
         const response = await fetch(`http://localhost/OBBS/Project_obbs/appointmentpage.php?action=view-appointments&donor_id=${donorId}`);
+        if (!response.ok) {
+            throw new Error('Network response was not ok ' + response.statusText);
+        }
         const data = await response.json();
         if (data.appointments.length > 0) {
             const ul = document.createElement('ul');

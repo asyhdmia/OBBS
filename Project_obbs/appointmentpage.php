@@ -12,7 +12,7 @@ if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
 
-// Check if 'action' key exists in the GET request
+// Fetch available dates
 if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['action']) && $_GET['action'] === 'available-dates') {
     $sql = "SELECT date FROM appointments";
     $result = $conn->query($sql);
@@ -27,11 +27,34 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['action']) && $_GET['act
     echo json_encode(['dates' => $dates]);
 }
 
-// Check if 'action' key exists in the POST request
+// Book an appointment
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['action'] === 'book-appointment') {
+    $donor_id = $_POST['donor_id'];
     $date = $_POST['date'];
-    // Add your logic to handle booking here. This example assumes you only log the date.
-    echo json_encode(['message' => "Appointment booked for $date"]);
+
+    $sql = "INSERT INTO booked_appointments (donor_id, date) VALUES ('$donor_id', '$date')";
+    if ($conn->query($sql) === TRUE) {
+        echo json_encode(['message' => "Appointment booked for $date"]);
+    } else {
+        echo json_encode(['error' => "Error: " . $sql . "<br>" . $conn->error]);
+    }
+}
+
+// Fetch booked appointments for a specific donor
+if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['action']) && $_GET['action'] === 'view-appointments') {
+    $donor_id = $_GET['donor_id'];
+
+    $sql = "SELECT date FROM booked_appointments WHERE donor_id = '$donor_id'";
+    $result = $conn->query($sql);
+
+    $appointments = [];
+    if ($result->num_rows > 0) {
+        while($row = $result->fetch_assoc()) {
+            $appointments[] = $row['date'];
+        }
+    }
+
+    echo json_encode(['appointments' => $appointments]);
 }
 
 $conn->close();
