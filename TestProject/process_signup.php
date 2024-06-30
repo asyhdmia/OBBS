@@ -55,7 +55,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 $errorMessage = "Invalid query: " . $connection->error;
             } else {
                 $successMessage = "Donor successfully added";
-                header("location: localhost/dashboard/OBBS/TestProject/process_login.php"); 
+                header("location: localhost/OBBS/TestProject/process_login.php"); 
                 exit;
             }
         }
@@ -106,7 +106,7 @@ $connection->close();
                             <div class="text-center">
                                 <h1 class="h4 text-gray-900 mb-4">Sign Up An Account</h1>
                             </div>
-                            <form class="user" method="post" action="donorsignup.php">
+                            <form class="user" method="POST" action="donorsignup.php">
                                 <div class="form-group">
                                         <input type="text" class="form-control form-control-user" id="username"
                                             placeholder="Username" value="<?php echo isset($obbs) ? $obbs : ''; ?>">

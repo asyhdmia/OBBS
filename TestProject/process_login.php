@@ -103,7 +103,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                                     </div>
                                     <div class="tab-content">
                                         <div class="tab-pane fade show active" id="obbs">
-                                            <form action="login.php" method="post">
+                                            <form action="login.php" method="POST">
                                                 <div class="form-group text-center">
                                                 <div class="form-group text-center"></div>
                                                     <div class="form-check form-check-inline">
