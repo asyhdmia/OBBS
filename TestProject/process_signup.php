@@ -3,7 +3,7 @@
 $servername = "localhost";
 $username = "root"; // Update with your MySQL username
 $password = ""; // Update with your MySQL password if applicable
-$database = "testobbs";
+$database = "bloodbank";
 
 // Create connection
 $connection = new mysqli($servername, $username, $password, $database);
