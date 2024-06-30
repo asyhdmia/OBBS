@@ -90,16 +90,16 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                             </div>
                             <form class="user" method="post" action="donorsignup.php">
                                 <div class="form-group">
-                                        <input type="text" class="form-control form-control-user" id="fullName"
-                                            placeholder="Full Name (as per IC)" name="fullName">
+                                        <input type="text" class="form-control form-control-user" id="username"
+                                            placeholder="Username">
                                     </div>
                                 <div class="form-group">
                                     <input type="email" class="form-control form-control-user" id="inputEmail"
-                                        placeholder="Email Address" name="email">
+                                        placeholder="Email Address">
                                 </div>
                                 <div class="form-group">
                                         <input type="password" class="form-control form-control-user"
-                                            id="inputPassword" placeholder="Password" name="password">
+                                            id="inputPassword" placeholder="Password">
                                     </div>
                                 <div class="form-group">
                                     

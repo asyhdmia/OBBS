@@ -49,7 +49,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
+
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -108,24 +110,18 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                                                 </div>   
                                                 <hr>
                                     <form class="user">
-                                        <?php if (!empty($errorMessage)): ?>
-                                            <div class="error"><?php echo $errorMessage; ?></div>
-                                        <?php endif; ?>
-                                        <?php if (!empty($successMessage)): ?>
-                                            <div class="success"><?php echo $successMessage; ?></div>
-                                        <?php endif; ?>
                                         <div class="form-group">
                                             <input type="username" class="form-control form-control-user"
                                                 id="inputUsername" aria-describedby="username"
-                                                placeholder="Username" name="username" value="<?php echo isset($username) ? $username : ''; ?>">
+                                                placeholder="Username">
                                         </div>
                                         <div class="form-group">
                                             <input type="password" class="form-control form-control-user"
-                                                id="inputPassword" placeholder="Password" name="password" value="<?php echo isset($password) ? $password : ''; ?>">
+                                                id="inputPassword" placeholder="Password">
                                         </div>
                                         <div class="form-group">
                                             <div class="custom-control custom-checkbox small">
-                                                <input type="checkbox" class="custom-control-input" id="customCheck" name="rememberMe" <?php if(isset($rememberMe) && $rememberMe) echo "checked"; ?>>
+                                                <input type="checkbox" class="custom-control-input" id="customCheck">
                                                 <label class="custom-control-label" for="customCheck">Remember
                                                     Me</label>
                                             </div>
