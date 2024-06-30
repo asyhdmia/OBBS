@@ -145,6 +145,11 @@
                                 <i class="material-icons">&#xE8B6;</i>
                                 <input type="text" name="search" class="form-control" placeholder="Search&hellip;">
                             </form>
+                            <div class="col-sm-3">
+                                <div class="add">
+                                <a class="btn btn-primary" href="/Project_obbs/createRecipient.php" role="button" >Add Recipient</a>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
