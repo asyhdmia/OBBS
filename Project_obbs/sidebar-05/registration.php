@@ -124,28 +124,28 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST'){
     <form action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>" method="post">
     <div class="row gy-3 gy-md-4 overflow-hidden">
       <div class="col-12">
-        <label for="name">Name:</label>
-        <input type="text" id="fullName" name="fullName" value="<?php echo isset($fullName) ? $fullName : ''; ?>"><br>
+        <label for="name" class="form-label">Name:</label>
+        <input type="text" class="form-control" id="fullName" name="fullName" value="<?php echo isset($fullName) ? $fullName : ''; ?>"><br>
         </div>
 
         <div class="col-12">
-        <label for="IC_No">IC No:</label>
-        <input type="text" id="IC_No" name="IC_No" value="<?php echo isset($IC_No) ? $IC_No : ''; ?>"><br>
+        <label for="IC_No" class="form-label">IC No:</label>
+        <input type="text" class="form-control" id="IC_No" name="IC_No" value="<?php echo isset($IC_No) ? $IC_No : ''; ?>"><br>
         </div>
         
         <div class="col-12">
-        <label for="Phone">Phone:</label>
-        <input type="text" id="Phone" name="Phone" value="<?php echo isset($Phone) ? $Phone : ''; ?>"><br>
+        <label for="Phone" class="form-label" >Phone:</label>
+        <input type="text" class="form-control" id="Phone" name="Phone" value="<?php echo isset($Phone) ? $Phone : ''; ?>"><br>
         </div>
         
         <div class="col-12">
-        <label for="Address">Address:</label>
-        <input type="text" id="Address" name="Address" value="<?php echo isset($Address) ? $Address : ''; ?>"><br>
+        <label for="Address" class="form-label">Address:</label>
+        <input type="text" class="form-control" id="Address" name="Address" value="<?php echo isset($Address) ? $Address : ''; ?>"><br>
         </div>
 
         <div class="col-12">
-        <label for="maritalStatus">Marital Status:</label>
-        <select id="maritalStatus" name="maritalStatus">
+        <label for="maritalStatus" class="form-label">Marital Status:</label>
+        <select id="maritalStatus" name="maritalStatus" class="form-control">
           <option value="Single" <?php if(isset($maritalStatus) && $maritalStatus == "Single") echo "selected"; ?>>Single</option>
           <option value="Married" <?php if(isset($maritalStatus) && $maritalStatus == "Married") echo "selected"; ?>>Married</option>
           <option value="Widowed" <?php if(isset($maritalStatus) && $maritalStatus == "Widowed") echo "selected"; ?>>Widowed</option>
@@ -156,7 +156,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST'){
 
         <div class="col-12">
         <input type="checkbox" id="iAgree" name="iAgree" <?php if(isset($iAgree) && $iAgree) echo "checked"; ?>>
-        <label for="iAgree">I agree to the terms and conditions</label><br>
+        <label class="form-check-label text-secondary" for="iAgree">I agree to the terms and conditions</label><br>
         </div>
 
         <div class="col-12">
