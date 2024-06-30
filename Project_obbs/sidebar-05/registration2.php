@@ -47,7 +47,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST'){
 
         $successMessage = "Recipient have succesfully added";
 
-        header("location:/Project_obbs/recipientPage.php");
+        header("location:/Project_obbs/sidebar-05/registration2.php");
         exit;
 
     }while(false);
@@ -79,52 +79,50 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST'){
                ";
         }
         ?>
-        <form method="post">
-        <div class="row mb-3">
-                <label class="col-sm-3 col-form-label">Name</label>
-                <div class="col-sm-6">
-                    <input type="text" class="form-control" name="name" value="<?php echo $name; ?>"></input>
-            </div>
-        </div>
-
-        <div class="row mb-3">
-                <label class="col-sm-3 col-form-label">Phone Number</label>
-                <div class="col-sm-6">
-                    <input type="text" class="form-control" name="phoneNum" value="<?php echo $phoneNum; ?>"></input>
-            </div>
-        </div>
-
-        <div class="row mb-3">
-                <label class="col-sm-3 col-form-label">Description</label>
-                <div class="col-sm-6">
-                    <input type="text" class="form-control" name="Descrip" value="<?php echo $Descrip; ?>"></input>
-            </div>
-        </div>
-
-        <?php
-        if ( !empty($successMessage) ){
-            echo "
-            <div class='row mb-3'>
-                <div class='offset-sm-3 col-sm-6'>
-                    <div class='alert alert-warning alert-dismissible fade show' role='alert'>
-                        <strong>$successMessage</strong>
-                        <button type='button' class='btn-close' data-bs-dismiss='alert' aria-label='Close'></button>
-                    </div>
-               </div>
-            </div>
-            ";
-        }
-        ?>
-        <div class="row mb-3">
-            <div class="offset-sm-3 col-sm-3 d-grid">
-                <button type = "submit" class="btn btn-primary"> Submit</button>
-            </div>
-            <div class="offset-sm-3 col-sm-3 d-grid">
-               <a class="btn btn-outline-primary" href="/Project_obbs/RecipientPage.php" role="button">Cancel</a>
-            </div>
-        </div>
-</form>
-
+        <form action="#!">
+              <div class="row gy-3 gy-md-4 overflow-hidden">
+                <div class="col-12">
+                  <label for="fullName" class="form-label">Full Name <span class="text-danger">*</span></label>
+                  <input type="fullName" class="form-control" name="fullName" id="fullName" value="<?php echo $fullName; ?>"></input>
+                </div>
+                <div class="col-12">
+                  <label for="IC_No" class="form-label">IC No <span class="text-danger">*</span></label>
+                  <input type="IC_No" class="form-control" name="IC_No" id="IC_No" value="<?php echo $IC_No; ?>"></input>
+                </div>
+                <div class="col-12">
+                  <label for="Phone" class="form-label">Phone <span class="text-danger">*</span></label>
+                  <input type="Phone" class="form-control" name="Phone" id="Phone" value="<?php echo $Phone; ?>"></input>
+                </div>
+				<div class="col-12">
+                  <label for="Address" class="form-label">Address <span class="text-danger">*</span></label>
+                  <input type="Address" class="form-control" name="Address" id="Address" value="<?php echo $Address; ?>"></input>
+                </div>
+				<div class="col-12">
+				<label for="maritalStatus" class="form-label">Marital Status <span class="text-danger">*</span></label>
+                                  
+                                  <select id="maritalStatus" class="form-control">
+                                    <option selected>Marital Status ...</option>
+                                    <option value="Single" <?php if(isset($maritalStatus) && $maritalStatus == "Single") echo "selected"; ?>>Single</option>
+                                    <option value="Married" <?php if(isset($maritalStatus) && $maritalStatus == "Married") echo "selected"; ?>>Married</option>
+                                    <option> widowed</option>
+                                    <option> Divorced</option>
+                                  </select>
+                        </div>
+                <div class="col-12">
+                  <div class="form-check">
+                    <input class="form-check-input" type="checkbox" value="" name="iAgree" id="iAgree" required>
+                    <label class="form-check-label text-secondary" for="iAgree">
+                      I agree to the <a href="#!" class="link-primary text-decoration-none">terms and conditions</a>
+                    </label>
+                  </div>
+                </div>
+                <div class="col-12">
+                  <div class="d-grid">
+                    <button class="btn bsb-btn-xl btn-danger" type="submit">Register</button>
+                  </div>
+                </div>
+              </div>
+            </form>
     </div>
 </body>
 </html>
