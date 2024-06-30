@@ -125,27 +125,27 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST'){
     <div class="row gy-3 gy-md-4 overflow-hidden">
       <div class="col-12">
         <label for="name" class="form-label">Name:</label>
-        <input type="text" class="form-control" id="fullName" name="fullName" value="<?php echo isset($fullName) ? $fullName : ''; ?>"><br>
+        <input type="text" class="form-control" style="background-color: gray;" id="fullName" name="fullName" value="<?php echo isset($fullName) ? $fullName : ''; ?>"><br>
         </div>
 
         <div class="col-12">
         <label for="IC_No" class="form-label">IC No:</label>
-        <input type="text" class="form-control" id="IC_No" name="IC_No" value="<?php echo isset($IC_No) ? $IC_No : ''; ?>"><br>
+        <input type="text" class="form-control" style="background-color: gray;" id="IC_No" name="IC_No" value="<?php echo isset($IC_No) ? $IC_No : ''; ?>"><br>
         </div>
         
         <div class="col-12">
         <label for="Phone" class="form-label" >Phone:</label>
-        <input type="text" class="form-control" id="Phone" name="Phone" value="<?php echo isset($Phone) ? $Phone : ''; ?>"><br>
+        <input type="text" class="form-control" style="background-color: gray;"  id="Phone" name="Phone" value="<?php echo isset($Phone) ? $Phone : ''; ?>"><br>
         </div>
         
         <div class="col-12">
         <label for="Address" class="form-label">Address:</label>
-        <input type="text" class="form-control" id="Address" name="Address" value="<?php echo isset($Address) ? $Address : ''; ?>"><br>
+        <input type="text" class="form-control"style="background-color: gray;"  id="Address" name="Address" value="<?php echo isset($Address) ? $Address : ''; ?>"><br>
         </div>
 
         <div class="col-12">
         <label for="maritalStatus" class="form-label">Marital Status:</label>
-        <select id="maritalStatus" name="maritalStatus" class="form-control">
+        <select style="background-color: gray;" id="maritalStatus" name="maritalStatus" class="form-control">
           <option value="Single" <?php if(isset($maritalStatus) && $maritalStatus == "Single") echo "selected"; ?>>Single</option>
           <option value="Married" <?php if(isset($maritalStatus) && $maritalStatus == "Married") echo "selected"; ?>>Married</option>
           <option value="Widowed" <?php if(isset($maritalStatus) && $maritalStatus == "Widowed") echo "selected"; ?>>Widowed</option>
