@@ -81,7 +81,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST'){
           <a href="index.html"><span class="fa fa-home mr-3"></span> Home</a>
         </li>
         <li>
-            <a href="registration.html"><span class="fa fa-pencil-square-o mr-3"></span> Register</a>
+            <a href="registration.php"><span class="fa fa-pencil-square-o mr-3"></span> Register</a>
         </li>
         <li>
           <a href="appo.html"><span class="fa fa-calendar-o mr-3"></span>Appointment</a>
