@@ -1,11 +1,9 @@
 <?php
-// Database connection details
 $servername = "localhost";
-$username = "root"; // Update with your MySQL username
-$password = ""; // Update with your MySQL password if applicable
-$database = "bloodbank";
+$username = "root";
+$password = "";
+$database = "testobbs"; 
 
-// Create connection
 $connection = new mysqli($servername, $username, $password, $database);
 
 // Check connection
@@ -13,38 +11,58 @@ if ($connection->connect_error) {
     die("Connection failed: " . $connection->connect_error);
 }
 
+$username = "";
+$email = "";
+$password = "";
+$confirmPassword = "";
+
 $errorMessage = "";
 $successMessage = "";
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    $fullName = $_POST["fullName"]; 
-    $email = $_POST["email"]; 
-    $password = $_POST["password"]; 
-    $confirmPassword = $_POST["confirmPassword"]; 
+    $username = $_POST["username"];
+    $email = $_POST["inputEmail"];
+    $password = $_POST["inputPassword"];
+    $confirmPassword = $_POST["inputConfirmPassword"];
+    
+    // reCAPTCHA verification
+    $recaptchaSecret = "6LeB0QMqAAAAABWkxW1qC9vbdj03egTxFKih3TSd"; // Your reCAPTCHA secret key
+    $recaptchaResponse = $_POST['g-recaptcha-response'];
 
-    // Validate password and confirm password match
-    if ($password !== $confirmPassword) {
-        $errorMessage = "Passwords do not match.";
+    $response = file_get_contents("https://www.google.com/recaptcha/api/siteverify?secret=$recaptchaSecret&response=$recaptchaResponse");
+    $responseKeys = json_decode($response, true);
+
+    if (intval($responseKeys["success"]) !== 1) {
+        $errorMessage = "reCAPTCHA verification failed. Please try again.";
     } else {
-        // Sanitize and validate user inputs
-        $fullName = mysqli_real_escape_string($connection, $fullName);
-        $email = mysqli_real_escape_string($connection, $email);
-        $password = mysqli_real_escape_string($connection, $password);
-
-        // Prepare and execute the SQL query to insert donor information
-        $sql = "INSERT INTO donor_signup (full_name, email, password) VALUES ('$fullName', '$email', '$password')";
-        $result = $connection->query($sql);
-
-        if ($result) {
-            $successMessage = "Donor account created successfully!";
+        if (empty($username) || empty($email) || empty($password) || empty($confirmPassword)) {
+            $errorMessage = "All fields are required";
+        } elseif ($password !== $confirmPassword) {
+            $errorMessage = "Passwords do not match";
         } else {
-            $errorMessage = "Error creating donor account: " . $connection->error;
+            // Hash the password before storing it in the database
+            $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
+
+            $sql = "INSERT INTO donor_signup (username, email, password, created_at, updated_at) VALUES (?, ?, ?, NOW(), NOW())";
+            $stmt = $connection->prepare($sql);
+
+            // Bind parameters to prevent SQL injection
+            $stmt->bind_param("sss", $username, $email, $hashedPassword);
+
+            $result = $stmt->execute();
+
+            if (!$result) {
+                $errorMessage = "Invalid query: " . $connection->error;
+            } else {
+                $successMessage = "Donor successfully added";
+                header("location: /OBBS/TestProject/process_login.php"); 
+                exit;
+            }
         }
     }
-
-    // Close the database connection
-    $connection->close();
 }
+
+$connection->close();
 ?>
 
 <!DOCTYPE html>
@@ -91,20 +109,20 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                             <form class="user" method="post" action="donorsignup.php">
                                 <div class="form-group">
                                         <input type="text" class="form-control form-control-user" id="username"
-                                            placeholder="Username">
+                                            placeholder="Username" value="<?php echo isset($username) ? $username : ''; ?>">
                                     </div>
                                 <div class="form-group">
                                     <input type="email" class="form-control form-control-user" id="inputEmail"
-                                        placeholder="Email Address">
+                                        placeholder="Email Address" value="<?php echo isset($email) ? $email : ''; ?>">
                                 </div>
                                 <div class="form-group">
                                         <input type="password" class="form-control form-control-user"
-                                            id="inputPassword" placeholder="Password">
+                                            id="inputPassword" placeholder="Password" value="<?php echo isset($password) ? $password : ''; ?>">
                                     </div>
                                 <div class="form-group">
                                     
                                         <input type="password" class="form-control form-control-user"
-                                            id="inputConfirmPassword" placeholder="Confirm Password">
+                                            id="inputConfirmPassword" placeholder="Confirm Password" value="<?php echo isset($confirmPassword) ? $confirmPassword : ''; ?>">
                                     </div>
                                     <div class="form-group">
                                         <div class="g-recaptcha" data-sitekey="6LeB0QMqAAAAABJZqh1DS0h6TDPcu0n4-On-n5Uz"></div>

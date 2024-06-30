@@ -3,7 +3,7 @@
 $servername = "localhost";
 $username = "root"; // Update with your MySQL username
 $password = ""; // Update with your MySQL password if applicable
-$database = "bloodbank";
+$database = "testobbs";
 
 // Create connection
 $connection = new mysqli($servername, $username, $password, $database);
@@ -17,29 +17,40 @@ $errorMessage = "";
 $successMessage = "";
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    $username = $_POST["username"]; 
-    $password = $_POST["password"]; 
-    $role = isset($_POST["role"]) ? $_POST["role"] : 'donor'; 
-    $rememberMe = isset($_POST["rememberMe"]) ? 1 : 0; 
+    $username = $_POST["username"];
+    $password = $_POST["password"];
+    $role = isset($_POST["role"]) ? $_POST["role"] : 'donor';
+    $rememberMe = isset($_POST["rememberMe"]) ? 1 : 0;
 
-    // Sanitize and validate user inputs
-    $username = mysqli_real_escape_string($connection, $username);
-    $password = mysqli_real_escape_string($connection, $password);
+    // Sanitize and validate user inputs (using prepared statements)
+    $username = trim($username); // Remove extra spaces
+    $password = trim($password); // Remove extra spaces
 
-    // Prepare and execute the SQL query
-    $sql = "SELECT * FROM users_login WHERE username = '$username' AND password = '$password'";
-    $result = $connection->query($sql);
-
-    if ($result->num_rows > 0) {
-        // User found, login successful
-        $successMessage = "Login successful!";
-        // Redirect to the appropriate page based on the user's role
-        // Example:
-        // header("Location: admin.php"); // For admin role
-        // header("Location: donor.php"); // For donor role
+    if (empty($username) || empty($password)) {
+        $errorMessage = "Please enter both username and password.";
     } else {
-        // User not found, login failed
-        $errorMessage = "Invalid username or password.";
+        // Prepare the SQL statement (using prepared statements to prevent SQL injection)
+        $stmt = $connection->prepare("SELECT * FROM users_login WHERE username = ? AND password = ?");
+        $stmt->bind_param("ss", $username, $password); 
+        $stmt->execute();
+        $result = $stmt->get_result();
+
+        if ($result->num_rows > 0) {
+            // User found, login successful
+            $successMessage = "Login successful!";
+            // Redirect to the appropriate page based on the user's role
+            // Example:
+            if ($role === 'admin') {
+                header("Location: admin.php"); 
+            } else {
+                header("Location: donor.php"); 
+            }
+            exit(); // Stop further execution after redirect
+        } else {
+            // User not found, login failed
+            $errorMessage = "Invalid username or password.";
+        }
+        $stmt->close();
     }
 
     // Close the database connection
@@ -96,13 +107,13 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                                                 <div class="form-group text-center">
                                                 <div class="form-group text-center"></div>
                                                     <div class="form-check form-check-inline">
-                                                        <input class="form-check-input" type="radio" name="data[User][role]" id="donorCheckbox" value="donor" required="required" checked>
+                                                        <input class="form-check-input" type="radio" name="data[User][role]" id="donorCheckbox" value="<?php echo isset($role) ? $role : ''; ?>" required="required" checked>
                                                         <label class="form-check-label">
                                                             Donor
                                                         </label>
                                                     </div>
                                                     <div class="form-check form-check-inline">
-                                                        <input class="form-check-input" type="radio" name="data[User][role]" id="adminCheckbox" value="admin" required="required">
+                                                        <input class="form-check-input" type="radio" name="data[User][role]" id="adminCheckbox" value="<?php echo isset($role) ? $role : ''; ?>" required="required">
                                                         <label class="form-check-label">
                                                             Admin
                                                         </label>
@@ -113,15 +124,15 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                                         <div class="form-group">
                                             <input type="username" class="form-control form-control-user"
                                                 id="inputUsername" aria-describedby="username"
-                                                placeholder="Username">
+                                                placeholder="Username" value="<?php echo isset($username) ? $username : ''; ?>">
                                         </div>
                                         <div class="form-group">
                                             <input type="password" class="form-control form-control-user"
-                                                id="inputPassword" placeholder="Password">
+                                                id="inputPassword" placeholder="Password" value="<?php echo isset($password) ? $password : ''; ?>">
                                         </div>
                                         <div class="form-group">
                                             <div class="custom-control custom-checkbox small">
-                                                <input type="checkbox" class="custom-control-input" id="customCheck">
+                                                <input type="checkbox" class="custom-control-input" id="customCheck" <?php if(isset($rememberMe) && $rememberMe) echo "checked"; ?>>
                                                 <label class="custom-control-label" for="customCheck">Remember
                                                     Me</label>
                                             </div>
