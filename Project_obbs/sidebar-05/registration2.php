@@ -104,13 +104,13 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST'){
                                     <option selected>Marital Status ...</option>
                                     <option value="Single" <?php if(isset($maritalStatus) && $maritalStatus == "Single") echo "selected"; ?>>Single</option>
                                     <option value="Married" <?php if(isset($maritalStatus) && $maritalStatus == "Married") echo "selected"; ?>>Married</option>
-                                    <option> widowed</option>
-                                    <option> Divorced</option>
+                                    <option value="Widowed" <?php if(isset($maritalStatus) && $maritalStatus == "Widowed") echo "selected"; ?>>Widowed</option>
+                                    <option value="Divorced" <?php if(isset($maritalStatus) && $maritalStatus == "Divorced") echo "selected"; ?>>Divorced</option>
                                   </select>
                         </div>
                 <div class="col-12">
                   <div class="form-check">
-                    <input class="form-check-input" type="checkbox" value="" name="iAgree" id="iAgree" required>
+                    <input class="form-check-input" type="checkbox" value="" name="iAgree" id="iAgree" value="<?php echo $iAgree; ?>"></input>
                     <label class="form-check-label text-secondary" for="iAgree">
                       I agree to the <a href="#!" class="link-primary text-decoration-none">terms and conditions</a>
                     </label>
