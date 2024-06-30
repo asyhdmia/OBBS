@@ -40,13 +40,14 @@
 	      </div>
     	</nav>
     <div class="container">
-        <h1>Blood Donation Appointment</h1>
-        <div id="reminder"></div>
+		<div class="col-sm-8"><h1>Blood Donation Appointment</h1> </div>
+		<h5>Please choose from available date only</h5>
         <label for="appointment-date">Select Appointment Date:</label>
         <select id="appointment-date">
-            <!-- Dates will be populated by JavaScript -->
         </select>
-        <button onclick="bookAppointment()">Book Appointment</button>
+        <button class="btn btn-primary" onclick="bookAppointment()">Book Appointment</button>
+
+		<div id="reminder"></div>
     </div>
     <script src="jsappo.js"></script>
 </body>
