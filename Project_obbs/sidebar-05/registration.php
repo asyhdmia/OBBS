@@ -122,14 +122,27 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST'){
             </div>
 
     <form action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>" method="post">
+    <div class="row gy-3 gy-md-4 overflow-hidden">
+      <div class="col-12">
         <label for="name">Name:</label>
         <input type="text" id="fullName" name="fullName" value="<?php echo isset($fullName) ? $fullName : ''; ?>"><br>
+        </div>
+
+        <div class="col-12">
         <label for="IC_No">IC No:</label>
         <input type="text" id="IC_No" name="IC_No" value="<?php echo isset($IC_No) ? $IC_No : ''; ?>"><br>
+        </div>
+        
+        <div class="col-12">
         <label for="Phone">Phone:</label>
         <input type="text" id="Phone" name="Phone" value="<?php echo isset($Phone) ? $Phone : ''; ?>"><br>
+        
+        <div class="col-12">
         <label for="Address">Address:</label>
         <input type="text" id="Address" name="Address" value="<?php echo isset($Address) ? $Address : ''; ?>"><br>
+        </div>
+
+        <div class="col-12">
         <label for="maritalStatus">Marital Status:</label>
         <select id="maritalStatus" name="maritalStatus">
           <option value="Single" <?php if(isset($maritalStatus) && $maritalStatus == "Single") echo "selected"; ?>>Single</option>
@@ -138,9 +151,18 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST'){
           <option value="Divorced" <?php if(isset($maritalStatus) && $maritalStatus == "Divorced") echo "selected"; ?>>Divorced</option>
         </select>
         <br>
+        </div>
+
+        <div class="col-12"></div>
         <input type="checkbox" id="iAgree" name="iAgree" <?php if(isset($iAgree) && $iAgree) echo "checked"; ?>>
         <label for="iAgree">I agree to the terms and conditions</label><br>
-        <input type="submit" value="Submit">
+        </div>
+
+        <div class="col-12">
+        <div class="d-grid">
+        <button class="btn bsb-btn-xl btn-danger" type="submit">Register</button>
+        </div>
+                </div>
     </form>
     </div>
         </div>
