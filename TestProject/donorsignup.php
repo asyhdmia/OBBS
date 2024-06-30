@@ -41,8 +41,8 @@
                             </div>
                             <form class="user" method="post" action="donorsignup.php">
                                 <div class="form-group">
-                                        <input type="text" class="form-control form-control-user" id="fullName"
-                                            placeholder="Full Name (as per IC)">
+                                        <input type="text" class="form-control form-control-user" id="username"
+                                            placeholder="Username">
                                     </div>
                                 <div class="form-group">
                                     <input type="email" class="form-control form-control-user" id="inputEmail"
