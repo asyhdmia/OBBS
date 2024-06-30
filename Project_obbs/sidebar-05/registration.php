@@ -1,3 +1,22 @@
+                <?php
+                        $servername = "localhost";
+                        $username = "root";
+                        $password="";
+                        $database="bloodbank";
+
+                        $connection = new mysqli($servername,$username,$password,$database) ;
+
+                        if($connection->connect_error){
+                            die("Connection failed: ". $connection->connect_error);
+                        }
+                       
+                        $sql = "SELECT * FROM recipients";
+                        $result = $connection->query($sql);
+
+                        if(!$result){
+                            die("Invalid query: " .$connection->error);
+                        }
+                ?>
 <!-- Registration 5 - Bootstrap Brain Component -->
 <link rel="stylesheet" href="https://unpkg.com/bootstrap@5.3.3/dist/css/bootstrap.min.css">
 <link rel="stylesheet" href="https://unpkg.com/bs-brain@2.0.4/components/registrations/registration-5/assets/css/registration-5.css">
