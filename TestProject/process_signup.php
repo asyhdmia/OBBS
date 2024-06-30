@@ -11,7 +11,7 @@ if ($connection->connect_error) {
     die("Connection failed: " . $connection->connect_error);
 }
 
-$username = "";
+$obbs = "";
 $email = "";
 $password = "";
 $confirmPassword = "";
@@ -20,7 +20,7 @@ $errorMessage = "";
 $successMessage = "";
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    $username = $_POST["username"];
+    $obbs = $_POST["username"];
     $email = $_POST["inputEmail"];
     $password = $_POST["inputPassword"];
     $confirmPassword = $_POST["inputConfirmPassword"];
@@ -35,7 +35,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     if (intval($responseKeys["success"]) !== 1) {
         $errorMessage = "reCAPTCHA verification failed. Please try again.";
     } else {
-        if (empty($username) || empty($email) || empty($password) || empty($confirmPassword)) {
+        if (empty($obbs) || empty($email) || empty($password) || empty($confirmPassword)) {
             $errorMessage = "All fields are required";
         } elseif ($password !== $confirmPassword) {
             $errorMessage = "Passwords do not match";
@@ -43,7 +43,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             // Hash the password before storing it in the database
             $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
 
-            $sql = "INSERT INTO donor_signup (username, email, password, created_at, updated_at) VALUES (?, ?, ?, NOW(), NOW())";
+            $sql = "INSERT INTO donor_signup (obbs, email, password, confirmPassword, created_at, updated_at) VALUES (?, ?, ?, ?, NOW(), NOW())";
             $stmt = $connection->prepare($sql);
 
             // Bind parameters to prevent SQL injection
@@ -109,7 +109,7 @@ $connection->close();
                             <form class="user" method="post" action="donorsignup.php">
                                 <div class="form-group">
                                         <input type="text" class="form-control form-control-user" id="username"
-                                            placeholder="Username" value="<?php echo isset($username) ? $username : ''; ?>">
+                                            placeholder="Username" value="<?php echo isset($obbs) ? $obbs : ''; ?>">
                                     </div>
                                 <div class="form-group">
                                     <input type="email" class="form-control form-control-user" id="inputEmail"
