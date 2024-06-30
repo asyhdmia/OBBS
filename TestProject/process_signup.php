@@ -55,7 +55,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 $errorMessage = "Invalid query: " . $connection->error;
             } else {
                 $successMessage = "Donor successfully added";
-                header("location: /OBBS/TestProject/process_login.php"); 
+                header("location: localhost/dashboard/OBBS/TestProject/process_login.php"); 
                 exit;
             }
         }
