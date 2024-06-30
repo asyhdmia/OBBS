@@ -136,6 +136,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST'){
         <div class="col-12">
         <label for="Phone">Phone:</label>
         <input type="text" id="Phone" name="Phone" value="<?php echo isset($Phone) ? $Phone : ''; ?>"><br>
+        </div>
         
         <div class="col-12">
         <label for="Address">Address:</label>
@@ -153,7 +154,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST'){
         <br>
         </div>
 
-        <div class="col-12"></div>
+        <div class="col-12">
         <input type="checkbox" id="iAgree" name="iAgree" <?php if(isset($iAgree) && $iAgree) echo "checked"; ?>>
         <label for="iAgree">I agree to the terms and conditions</label><br>
         </div>
