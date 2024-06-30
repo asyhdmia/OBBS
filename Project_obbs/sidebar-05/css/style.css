@@ -217,11 +217,6 @@ select {
 select {
   word-wrap: normal; }
 
-button,
-[type="button"],
-[type="reset"],
-[type="submit"] {
-  -webkit-appearance: button; }
 
 button:not(:disabled),
 [type="button"]:not(:disabled),
@@ -241,12 +236,6 @@ input[type="checkbox"] {
   -webkit-box-sizing: border-box;
   box-sizing: border-box;
   padding: 0; }
-
-input[type="date"],
-input[type="time"],
-input[type="datetime-local"],
-input[type="month"] {
-  -webkit-appearance: listbox; }
 
 textarea {
   overflow: auto;
@@ -277,8 +266,7 @@ progress {
   height: auto; }
 
 [type="search"] {
-  outline-offset: -2px;
-  -webkit-appearance: none; }
+  outline-offset: -2px;}
 
 [type="search"]::-webkit-search-decoration {
   -webkit-appearance: none; }
@@ -1597,7 +1585,7 @@ pre {
   font-weight: 400;
   line-height: 1.5;
   color: #495057;
-  background-color: #fff;
+  background-color: #c6bfbfe1;
   background-clip: padding-box;
   border: 1px solid #ced4da;
   border-radius: 0.25rem;
@@ -1634,7 +1622,7 @@ pre {
     color: #6c757d;
     opacity: 1; }
   .form-control:disabled, .form-control[readonly] {
-    background-color: #e9ecef;
+    background-color: #cdd3d8;
     opacity: 1; }
 
 select.form-control:focus::-ms-value {
@@ -8320,7 +8308,7 @@ a[data-toggle="collapse"] {
 
 .form-control {
   height: 40px !important;
-  background: #fff;
+  background: #ededed;
   color: #000;
   font-size: 13px;
   border-radius: 4px;
