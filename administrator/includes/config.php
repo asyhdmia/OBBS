@@ -1,9 +1,9 @@
-<?php 
+<?php
 // DB credentials.
 define('DB_HOST','localhost');
 define('DB_USER','root');
 define('DB_PASS','');
-define('DB_NAME','bbdms');
+define('DB_NAME','bloodbank');
 // Establish database connection.
 try
 {
