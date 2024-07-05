@@ -1,10 +1,17 @@
 <?php
-$servername="localhost";
-$username="root";
-$password="";
-$database="bloodbank";
+$servername = "localhost";
+$username = "root";
+$password = "";
+$database = "bloodbank";
 
-$connection = new mysqli($servername,$username,$password,$database);
+// Create connection
+$connection = new mysqli($servername, $username, $password, $database);
+
+// Check connection
+if ($connection->connect_error) {
+    die("Connection failed: " . $connection->connect_error);
+}
+
 $fullName = "";
 $IC_No = "";
 $Phone = "";
@@ -15,42 +22,41 @@ $iAgree = "";
 $errorMessage = "";
 $successMessage = "";
 
-if ($_SERVER['REQUEST_METHOD'] == 'POST'){
+if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+    $fullName = $_POST["fullName"];
+    $IC_No = $_POST["IC_No"];
+    $Phone = $_POST["Phone"];
+    $Address = $_POST["Address"];
+    $maritalStatus = isset($_POST["maritalStatus"]) ? $_POST["maritalStatus"] : '';
+    $iAgree = isset($_POST["iAgree"]) ? 1 : 0;
 
-  $fullName = $_POST["fullName"];
-  $IC_No = $_POST["IC_No"];
-  $Phone = $_POST["Phone"];
-  $Address = $_POST["Address"];
-  $maritalStatus = isset($_POST["maritalStatus"]) ? $_POST["maritalStatus"] : '';
-  $iAgree = isset($_POST["iAgree"]) ? 1 : 0;
-  
-  do{
-      if( empty($fullName) || empty($IC_No) || empty($Phone) || empty($Address) || empty($maritalStatus) || empty($iAgree)){
-          $errorMessage ="All the fields are required";
-          break;
-      }
+    do {
+        if (empty($fullName) || empty($IC_No) || empty($Phone) || empty($Address) || empty($maritalStatus) || empty($iAgree)) {
+            $errorMessage = "All the fields are required";
+            break;
+        }
 
-      $sql = "INSERT INTO registration (fullName,IC_No,Phone,Address,maritalStatus,iAgree)" . "VALUES ('$fullName','$IC_No','$Phone','$Address','$maritalStatus','$iAgree')";
-      $result = $connection->query($sql);
+        $sql = "INSERT INTO registration (fullName, IC_No, Phone, Address, maritalStatus, iAgree) VALUES ('$fullName', '$IC_No', '$Phone', '$Address', '$maritalStatus', '$iAgree')";
+        $result = $connection->query($sql);
 
-      if(!$result){
-          $errorMessage = "Invalid query: ". $connection->error;
-          break;
-      }
+        if (!$result) {
+            $errorMessage = "Invalid query: " . $connection->error;
+            break;
+        }
 
-      $fullName = "";
-      $IC_No = "";
-      $Phone = "";
-      $Address = "";
-      $maritalStatus = "";
-      $iAgree = "";
+        $fullName = "";
+        $IC_No = "";
+        $Phone = "";
+        $Address = "";
+        $maritalStatus = "";
+        $iAgree = "";
 
-      $successMessage = "Recipient have succesfully added";
+        $successMessage = "Recipient is successfully added";
 
-      header("location:/OBBS/Project_obbs/sidebar-05/registration.php");
-      exit;
+        header("Location: viewProfile.php");
+        exit;
 
-  }while(false);
+    } while (false);
 }
 ?>
 <!DOCTYPE html>
@@ -87,7 +93,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST'){
           <a href="appo.html"><span class="fa fa-calendar-o mr-3"></span>Appointment</a>
         </li>
         <li>
-          <a href="#"><span class="fa fa-user mr-3"></span> Profile</a>
+        <a href="viewProfile.php"><span class="fa fa-user mr-3"></span> Profile</a>
         </li>
         <li>
           <a href="#"><span class="fa fa-book mr-3"></span> Manual</a>
@@ -173,4 +179,3 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST'){
 </section>
 </body>
 </html>
-
