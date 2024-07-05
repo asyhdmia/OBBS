@@ -36,23 +36,23 @@ $conn->close();
 
     <!-- Document Title, Description, and Author -->
     <title>About Us - Online Blood Bank System</title>
-    <meta name="description" content="This Bootstrap About 1 Section has a clean, modern, responsive layout and is very easy to use in the Bootstrap templates. This Bootstrap snippet will look fantastic on all devices.">
-    <meta name="author" content="BootstrapBrain">
+    <meta name="description" content="Learn more about our Online Blood Bank System, how it works, and how you can contribute.">
+    <meta name="author" content="Online Blood Bank System">
 
     <!-- Canonical -->
-    <link rel="canonical" href="https://bootstrapbrain.com/demo/components/abouts/about-1/">
+    <link rel="canonical" href="#">
 
     <!-- Favicon -->
-    <link rel="icon" href="https://bootstrapbrain.com/demo/lib/assets/img/site-icon-32x32.png" sizes="32x32">
-    <link rel="icon" href="https://bootstrapbrain.com/demo/lib/assets/img/site-icon-192x192.png" sizes="192x192">
-    <link rel="apple-touch-icon" href="https://bootstrapbrain.com/demo/lib/assets/img/site-icon-180x180.png">
-    <meta name="msapplication-TileImage" content="https://bootstrapbrain.com/demo/lib/assets/img/site-icon-270x270.png">
+    <link rel="icon" href="path_to_favicon" sizes="32x32">
+    <link rel="icon" href="path_to_favicon" sizes="192x192">
+    <link rel="apple-touch-icon" href="path_to_favicon">
+    <meta name="msapplication-TileImage" content="path_to_favicon">
 
     <!-- CSS Files -->
     <link rel="stylesheet" href="https://unpkg.com/bootstrap@5.3.3/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://unpkg.com/bootstrap-icons@1.11.1/font/bootstrap-icons.min.css">
     <link rel="stylesheet" href="https://unpkg.com/prismjs@1.29.0/themes/prism.min.css">
-    <link rel="stylesheet" href="https://bootstrapbrain.com/demo/lib/assets/css/demo.css">
+    <link rel="stylesheet" href="path_to_custom_css">
 
     <!-- Google tag (gtag.js) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-SJFXLJLFXH"></script>
@@ -73,14 +73,14 @@ $conn->close();
                     <div class="col-12 col-md-10 col-lg-8 col-xl-7X col-xxl-6X">
                         <h1 class="text-center fs-4 mb-4">About the Online Blood Bank System</h1>
                         <div class="text-center">
-                            <a class="d-inline-flex m-0 px-2 py-1 fw-semibold text-primary-emphasis bg-primary-subtle border border-primary-subtle rounded-2 text-decoration-none" href="#how-to-use">How to use this Bootstrap snippet</a>
+                            <a class="d-inline-flex m-0 px-2 py-1 fw-semibold text-primary-emphasis bg-primary-subtle border border-primary-subtle rounded-2 text-decoration-none" href="#how-to-use">How to use this system</a>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
 
-        <!-- About 1 - Bootstrap Brain Component -->
+        <!-- About Section -->
         <section class="py-3 py-md-5">
             <div class="container">
                 <div class="row gy-3 gy-md-4 gy-lg-0 align-items-lg-center">
@@ -92,10 +92,10 @@ $conn->close();
                             <div class="col-12 col-xl-11">
                                 <h2 class="mb-3">Who Are We?</h2>
                                 <p class="lead fs-4 text-secondary mb-3">
-                                    We help people to build incredible brands and superior products. Our perspective is to furnish outstanding captivating services.
+                                    We help save lives by providing an efficient platform for blood donation. Our mission is to connect donors with those in need of blood through a user-friendly, secure system.
                                 </p>
                                 <p class="mb-5">
-                                    We are a fast-growing company, but we have never lost sight of our core values. We believe in collaboration, innovation, and customer satisfaction. We are always looking for new ways to improve our products and services.
+                                    Our team is dedicated to ensuring that blood donations are managed effectively, reducing wastage and ensuring a steady supply for hospitals and medical facilities.
                                 </p>
                                 <div class="row gy-4 gy-md-0 gx-xxl-5X">
                                     <div class="col-12 col-md-6">
@@ -106,9 +106,9 @@ $conn->close();
                                                 </svg>
                                             </div>
                                             <div>
-                                                <h2 class="h4 mb-3">Versatile Brand</h2>
+                                                <h2 class="h4 mb-3">Versatile System</h2>
                                                 <p class="text-secondary mb-0">
-                                                    We are crafting a digital method that subsists life across all mediums.
+                                                    Our platform is designed to be versatile, supporting various functionalities that ensure smooth operations across all devices.
                                                 </p>
                                             </div>
                                         </div>
@@ -121,9 +121,9 @@ $conn->close();
                                                 </svg>
                                             </div>
                                             <div>
-                                                <h2 class="h4 mb-3">Digital Agency</h2>
+                                                <h2 class="h4 mb-3">Innovative Approach</h2>
                                                 <p class="text-secondary mb-0">
-                                                    We believe in innovation by merging primary with elaborate ideas.
+                                                    We leverage innovative solutions to streamline blood donation processes, making it easier for donors and recipients to connect.
                                                 </p>
                                             </div>
                                         </div>
