@@ -27,7 +27,8 @@ if ($result->num_rows > 0) {
 
 $conn->close();
 ?>
-<!doctype html>
+
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <!-- Required Meta Tags -->
@@ -64,7 +65,7 @@ $conn->close();
         gtag('config', 'G-SJFXLJLFXH');
     </script>
 </head>
-<body>
+<body class="bg-danger">
     <!-- Main -->
     <main id="main">
         <div class="py-3 py-md-5 bsb-demo-bg-blue border-0 border-bottom bsb-demo-border-blue-subtle">
