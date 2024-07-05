@@ -17,14 +17,14 @@ if ($conn->connect_error) {
 // Handle form submission
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
   $id_signup = uniqid(); // Generate a unique ID
-  $full_name = $_POST["fullName"];
+  $username = $_POST["username"];
   $email = $_POST["inputEmail"];
   $password = $_POST["inputPassword"];
 
   // Prepare and execute SQL statement
-  $sql = "INSERT INTO donor_signup (id_signup, full_name, email, password) VALUES (?, ?, ?, ?)";
+  $sql = "INSERT INTO donor_signup (id_signup, username, email, password) VALUES (?, ?, ?, ?)";
   $stmt = $conn->prepare($sql);
-  $stmt->bind_param("ssss", $id_signup, $full_name, $email, $password);
+  $stmt->bind_param("ssss", $id_signup, $username, $email, $password);
   $stmt->execute();
 
   // Check for errors
