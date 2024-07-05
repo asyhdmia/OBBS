@@ -63,7 +63,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 $user = $result->fetch_assoc();
 
                 // Verify the password from users_login table
-                if (password_verify($password, $user['password'])) {
+                if ($password === $user['password']) {
                     // Login successful for admin
                     $successMessage = "Login successful!";
                     // Update login details in the users_login table
