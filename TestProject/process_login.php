@@ -14,7 +14,6 @@ if ($connection->connect_error) {
 }
 
 $errorMessage = "";
-$successMessage = "";
 $inputUsername = ""; // Variable to hold the input username
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
@@ -29,8 +28,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     if (empty($inputUsername) || empty($password)) {
         $errorMessage = "Please enter both username and password.";
     } else {
-        // Check if the user exists in the donor_signup table
-        $stmt = $connection->prepare("SELECT * FROM donor_signup WHERE username = ?");
+        // Check if the user exists in the donor_signup table and retrieve password
+        $stmt = $connection->prepare("SELECT password FROM donor_signup WHERE username = ?");
         $stmt->bind_param("s", $inputUsername);
         $stmt->execute();
         $result = $stmt->get_result();
@@ -43,10 +42,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 // Login successful for donor
                 $successMessage = "Login successful!";
                 // Update login details in the donor_signup table
-                $stmt_update = $connection->prepare("UPDATE donor_signup SET remember_me = ?, updated_at = NOW() WHERE username = ?");
-                $stmt_update->bind_param("is", $rememberMe, $inputUsername);
-                $stmt_update->execute();
-                $stmt_update->close();
+                $stmt = $connection->prepare("UPDATE donor_signup SET remember_me = ?, updated_at = NOW() WHERE username = ?");
+                $stmt->bind_param("is", $rememberMe, $inputUsername);
+                $stmt->execute();
 
                 // Redirect to the donor page
                 header("Location: donor.php");
@@ -55,8 +53,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 $errorMessage = "Invalid username or password.";
             }
         } else {
-            // Check if the user exists in the users_login table
-            $stmt = $connection->prepare("SELECT * FROM users_login WHERE username = ?");
+            // Check if the user exists in the users_login table and retrieve password
+            $stmt = $connection->prepare("SELECT password FROM users_login WHERE username = ?");
             $stmt->bind_param("s", $inputUsername);
             $stmt->execute();
             $result = $stmt->get_result();
@@ -69,10 +67,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                     // Login successful for admin
                     $successMessage = "Login successful!";
                     // Update login details in the users_login table
-                    $stmt_update = $connection->prepare("UPDATE users_login SET remember_me = ?, updated_at = NOW() WHERE username = ?");
-                    $stmt_update->bind_param("is", $rememberMe, $inputUsername);
-                    $stmt_update->execute();
-                    $stmt_update->close();
+                    $stmt = $connection->prepare("UPDATE users_login SET remember_me = ?, updated_at = NOW() WHERE username = ?");
+                    $stmt->bind_param("is", $rememberMe, $inputUsername);
+                    $stmt->execute();
 
                     // Redirect to the admin page
                     header("Location: admin.php");
