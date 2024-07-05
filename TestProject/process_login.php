@@ -14,6 +14,7 @@ if ($connection->connect_error) {
 }
 
 $errorMessage = "";
+$successMessage = "";
 $inputUsername = ""; // Variable to hold the input username
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
@@ -141,9 +142,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                                         <button type="submit" class="btn btn-primary btn-user btn-block">Login</button>
                                         <hr>
                                     </form>
-                                    <div class="text-center">
-                                        <a class="small" href="forgot-password.html">Forgot Password?</a>
-                                    </div>
                                     <div class="text-center">
                                         <a class="small" href="process_signup.php">Create an Account!</a>
                                     </div>
