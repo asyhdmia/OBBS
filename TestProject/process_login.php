@@ -28,7 +28,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     if (empty($inputUsername) || empty($password)) {
         $errorMessage = "Please enter both username and password.";
     } else {
-        // Check if the user exists in the donor_signup table and retrieve password
+        // Check if the user exists in the donor_signup table (for donors)
         $stmt = $connection->prepare("SELECT password FROM donor_signup WHERE username = ?");
         $stmt->bind_param("s", $inputUsername);
         $stmt->execute();
@@ -53,8 +53,34 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 $errorMessage = "Invalid username or password.";
             }
         } else {
-            // User not found in donor_signup table
-            $errorMessage = "Invalid username or password.";
+            // Check if the user exists in the users_login table (for admins)
+            $stmt = $connection->prepare("SELECT password FROM users_login WHERE username = ?");
+            $stmt->bind_param("s", $inputUsername);
+            $stmt->execute();
+            $result = $stmt->get_result();
+
+            if ($result->num_rows > 0) {
+                $user = $result->fetch_assoc();
+
+                // Verify the password from users_login table
+                if ($password == $user['password']) { // For demonstration, using plain text comparison
+                    // Login successful for admin
+                    $successMessage = "Login successful!";
+                    // Update login details in the users_login table
+                    $stmt = $connection->prepare("UPDATE users_login SET remember_me = ?, updated_at = NOW() WHERE username = ?");
+                    $stmt->bind_param("is", $rememberMe, $inputUsername);
+                    $stmt->execute();
+
+                    // Redirect to the admin page
+                    header("Location: http://localhost/dashboard/OBBS/admin blood inventory/admin_page.php"); // Replace with your admin page URL
+                    exit();
+                } else {
+                    $errorMessage = "Invalid username or password.";
+                }
+            } else {
+                // User not found in either table
+                $errorMessage = "Invalid username or password.";
+            }
         }
         $stmt->close();
     }
