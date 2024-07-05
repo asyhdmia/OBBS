@@ -72,7 +72,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                     $stmt->execute();
 
                     // Redirect to the admin page
-                    header("Location: http://localhost/dashboard/OBBS/admin blood inventory/admin_page.php"); // Replace with your admin page URL
+                    header("Location: http://localhost/dashboard/OBBS/administrator/admin_page.php"); // Replace with your admin page URL
                     exit();
                 } else {
                     $errorMessage = "Invalid username or password.";
