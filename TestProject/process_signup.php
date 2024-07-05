@@ -24,40 +24,29 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $email = $_POST["inputEmail"];
     $password = $_POST["inputPassword"];
     $confirmPassword = $_POST["inputConfirmPassword"];
-    
-    // reCAPTCHA verification
-    $recaptchaSecret = "6LeB0QMqAAAAABWkxW1qC9vbdj03egTxFKih3TSd"; // Your reCAPTCHA secret key
-    $recaptchaResponse = $_POST['g-recaptcha-response'];
 
-    $response = file_get_contents("https://www.google.com/recaptcha/api/siteverify?secret=$recaptchaSecret&response=$recaptchaResponse");
-    $responseKeys = json_decode($response, true);
-
-    if (intval($responseKeys["success"]) !== 1) {
-        $errorMessage = "reCAPTCHA verification failed. Please try again.";
+    if (empty($username) || empty($email) || empty($password) || empty($confirmPassword)) {
+        $errorMessage = "All fields are required";
+    } elseif ($password !== $confirmPassword) {
+        $errorMessage = "Passwords do not match";
     } else {
-        if (empty($username) || empty($email) || empty($password) || empty($confirmPassword)) {
-            $errorMessage = "All fields are required";
-        } elseif ($password !== $confirmPassword) {
-            $errorMessage = "Passwords do not match";
+        // Hash the password before storing it in the database
+        $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
+
+        $sql = "INSERT INTO donor_signup (username, email, password, created_at, updated_at) VALUES (?, ?, ?, NOW(), NOW())";
+        $stmt = $connection->prepare($sql);
+
+        // Bind parameters to prevent SQL injection
+        $stmt->bind_param("sss", $username, $email, $hashedPassword);
+
+        $result = $stmt->execute();
+
+        if (!$result) {
+            $errorMessage = "Invalid query: " . $connection->error;
         } else {
-            // Hash the password before storing it in the database
-            $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
-
-            $sql = "INSERT INTO donor_signup (username, email, password, created_at, updated_at) VALUES (?, ?, ?, NOW(), NOW())";
-            $stmt = $connection->prepare($sql);
-
-            // Bind parameters to prevent SQL injection
-            $stmt->bind_param("sss", $username, $email, $hashedPassword);
-
-            $result = $stmt->execute();
-
-            if (!$result) {
-                $errorMessage = "Invalid query: " . $connection->error;
-            } else {
-                $successMessage = "Donor successfully added";
-                header("Location: process_login.php"); 
-                exit;
-            }
+            $successMessage = "Donor successfully added";
+            header("Location: process_login.php"); 
+            exit;
         }
     }
 }
@@ -77,7 +66,6 @@ $connection->close();
     <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
     <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
     <link href="css/sb-admin-2.min.css" rel="stylesheet">
-    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
 </head>
 <body class="bg-gradient-danger">
     <div class="container">
@@ -104,9 +92,6 @@ $connection->close();
                                     <input type="password" class="form-control form-control-user" name="inputConfirmPassword" placeholder="Confirm Password" value="<?php echo isset($confirmPassword) ? htmlspecialchars($confirmPassword) : ''; ?>">
                                 </div>
                                 <div class="form-group">
-                                    <div class="g-recaptcha" data-sitekey="6LeB0QMqAAAAABJZqh1DS0h6TDPcu0n4-On-n5Uz"></div>
-                                </div>
-                                <div class="form-group">
                                     <?php
                                     if (!empty($errorMessage)) {
                                         echo "<div class='alert alert-danger'>$errorMessage</div>";
@@ -119,9 +104,6 @@ $connection->close();
                                 <hr>
                             </form>
                             <hr>
-                            <div class="text-center">
-                                <a class="small" href="forgot-password.html">Forgot Password?</a>
-                            </div>
                             <div class="text-center">
                                 <a class="small" href="process_login.php">Already have an account? Login!</a>
                             </div>
