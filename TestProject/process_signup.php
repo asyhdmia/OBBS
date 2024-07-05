@@ -55,7 +55,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 $errorMessage = "Invalid query: " . $connection->error;
             } else {
                 $successMessage = "Donor successfully added";
-                header("Location: localhost/OBBS/TestProject/process_login.php"); 
+                header("Location: process_login.php"); 
                 exit;
             }
         }
@@ -92,16 +92,16 @@ $connection->close();
                             </div>
                             <form class="user" method="POST" action="process_signup.php">
                                 <div class="form-group">
-                                    <input type="text" class="form-control form-control-user" name="username" placeholder="Username" value="<?php echo isset($username) ? $username : ''; ?>">
+                                    <input type="text" class="form-control form-control-user" name="username" placeholder="Username" value="<?php echo isset($username) ? htmlspecialchars($username) : ''; ?>">
                                 </div>
                                 <div class="form-group">
-                                    <input type="email" class="form-control form-control-user" name="inputEmail" placeholder="Email Address" value="<?php echo isset($email) ? $email : ''; ?>">
+                                    <input type="email" class="form-control form-control-user" name="inputEmail" placeholder="Email Address" value="<?php echo isset($email) ? htmlspecialchars($email) : ''; ?>">
                                 </div>
                                 <div class="form-group">
-                                    <input type="password" class="form-control form-control-user" name="inputPassword" placeholder="Password" value="<?php echo isset($password) ? $password : ''; ?>">
+                                    <input type="password" class="form-control form-control-user" name="inputPassword" placeholder="Password" value="<?php echo isset($password) ? htmlspecialchars($password) : ''; ?>">
                                 </div>
                                 <div class="form-group">
-                                    <input type="password" class="form-control form-control-user" name="inputConfirmPassword" placeholder="Confirm Password" value="<?php echo isset($confirmPassword) ? $confirmPassword : ''; ?>">
+                                    <input type="password" class="form-control form-control-user" name="inputConfirmPassword" placeholder="Confirm Password" value="<?php echo isset($confirmPassword) ? htmlspecialchars($confirmPassword) : ''; ?>">
                                 </div>
                                 <div class="form-group">
                                     <div class="g-recaptcha" data-sitekey="6LeB0QMqAAAAABJZqh1DS0h6TDPcu0n4-On-n5Uz"></div>
@@ -123,7 +123,7 @@ $connection->close();
                                 <a class="small" href="forgot-password.html">Forgot Password?</a>
                             </div>
                             <div class="text-center">
-                                <a class="small" href="login.html">Already have an account? Login!</a>
+                                <a class="small" href="process_login.php">Already have an account? Login!</a>
                             </div>
                         </div>
                     </div>

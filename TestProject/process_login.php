@@ -1,12 +1,12 @@
 <?php
 // Database connection details
 $servername = "localhost";
-$username = "root"; // Update with your MySQL username
-$password = ""; // Update with your MySQL password if applicable
+$dbUsername = "root"; // Update with your MySQL username
+$dbPassword = ""; // Update with your MySQL password if applicable
 $database = "bloodbank";
 
 // Create connection
-$connection = new mysqli($servername, $username, $password, $database);
+$connection = new mysqli($servername, $dbUsername, $dbPassword, $database);
 
 // Check connection
 if ($connection->connect_error) {
@@ -15,22 +15,23 @@ if ($connection->connect_error) {
 
 $errorMessage = "";
 $successMessage = "";
+$inputUsername = ""; // Variable to hold the input username
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    $username = $_POST["username"];
+    $inputUsername = $_POST["username"];
     $password = $_POST["password"];
     $rememberMe = isset($_POST["rememberMe"]) ? 1 : 0;
 
     // Sanitize and validate user inputs
-    $username = trim($username); // Remove extra spaces
+    $inputUsername = trim($inputUsername); // Remove extra spaces
     $password = trim($password); // Remove extra spaces
 
-    if (empty($username) || empty($password)) {
+    if (empty($inputUsername) || empty($password)) {
         $errorMessage = "Please enter both username and password.";
     } else {
         // Prepare the SQL statement to select the user
         $stmt = $connection->prepare("SELECT * FROM users_login WHERE username = ?");
-        $stmt->bind_param("s", $username);
+        $stmt->bind_param("s", $inputUsername);
         $stmt->execute();
         $result = $stmt->get_result();
 
@@ -41,9 +42,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             if (password_verify($password, $user['password'])) {
                 // Login successful
                 $successMessage = "Login successful!";
-                // Insert login details into the database
+                // Update login details in the database
                 $stmt = $connection->prepare("UPDATE users_login SET remember_me = ?, updated_at = NOW() WHERE username = ?");
-                $stmt->bind_param("is", $rememberMe, $username);
+                $stmt->bind_param("is", $rememberMe, $inputUsername);
                 $stmt->execute();
 
                 // Redirect to the appropriate page based on the user's role
@@ -70,7 +71,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -82,9 +82,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
     <link href="css/sb-admin-2.min.css" rel="stylesheet">
 </head>
-
 <body class="bg-gradient-danger">
-
     <div class="container">
         <div class="row justify-content-center">
             <div class="col-xl-10 col-lg-12 col-md-9">
@@ -99,10 +97,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                                     </div>
                                     <form action="process_login.php" method="POST" class="user">
                                         <div class="form-group">
-                                            <input type="username" class="form-control form-control-user" name="username" id="inputUsername" aria-describedby="username" placeholder="Username" value="<?php echo isset($username) ? $username : ''; ?>">
+                                            <input type="text" class="form-control form-control-user" name="username" id="inputUsername" aria-describedby="username" placeholder="Username" value="<?php echo htmlspecialchars($inputUsername); ?>">
                                         </div>
                                         <div class="form-group">
-                                            <input type="password" class="form-control form-control-user" name="password" id="inputPassword" placeholder="Password" value="<?php echo isset($password) ? $password : ''; ?>">
+                                            <input type="password" class="form-control form-control-user" name="password" id="inputPassword" placeholder="Password">
                                         </div>
                                         <div class="form-group">
                                             <div class="custom-control custom-checkbox small">
@@ -126,7 +124,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                                         <a class="small" href="forgot-password.html">Forgot Password?</a>
                                     </div>
                                     <div class="text-center">
-                                        <a class="small" href="donorsignup.html">Create an Account!</a>
+                                        <a class="small" href="process_signup.php">Create an Account!</a>
                                     </div>
                                 </div>
                             </div>
@@ -136,11 +134,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             </div>
         </div>
     </div>
-
     <script src="vendor/jquery/jquery.min.js"></script>
     <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
     <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
     <script src="js/sb-admin-2.min.js"></script>
 </body>
-
 </html>
