@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blood Donation Appointment</title>
+    
+	<link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700,800,900" rel="stylesheet">
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+	<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<div class="wrapper d-flex align-items-stretch">
+			<nav id="sidebar">
+				<div class="custom-menu">
+					<button type="button" id="sidebarCollapse" class="btn btn-primary">
+	          <i class="fa fa-bars"></i>
+	          <span class="sr-only">Toggle Menu</span>
+	        </button>
+        </div>
+				<div class="p-4">
+		  		<h1><a href="index.html" class="logo">Blood Bank <span>Online System</span></a></h1>
+	        <ul class="list-unstyled components mb-5">
+	          <li class="active">
+	            <a href="index.html"><span class="fa fa-home mr-3"></span> Home</a>
+	          </li>
+	          <li>
+	              <a href="registration.php"><span class="fa fa-pencil-square-o mr-3"></span> Register</a>
+	          </li>
+	          <li>
+              <a href="appo.html"><span class="fa fa-calendar-o mr-3"></span>Appointment</a>
+	          </li>
+	          <li>
+				<a href="viewProfile.php"><span class="fa fa-user mr-3"></span> Profile</a>
+	          </li>
+	          <li>
+              <a href="#"><span class="fa fa-book mr-3"></span> Manual</a>
+	          </li>
+	        </ul>
+	      </div>
+    	</nav>
+    <div class="container">
+		<div class="col-sm-8"><h1>Blood Donation Appointment</h1> </div>
+		<h5>Please choose from available date only</h5>
+        <label for="appointment-date">Select Appointment Date:</label>
+        <select id="appointment-date">
+        </select>
+        <button class="btn btn-primary" onclick="bookAppointment()">Book Appointment</button>
+
+		<div id="reminder"></div>
+    </div>
+    <script src="jsappo.js"></script>
+</body>
+</html>
