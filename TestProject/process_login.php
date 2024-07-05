@@ -30,7 +30,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $errorMessage = "Please enter both username and password.";
     } else {
         // Prepare the SQL statement to select the user
-        $stmt = $connection->prepare("SELECT * FROM users_login WHERE username = ?");
+        $stmt = $connection->prepare("SELECT * FROM donor_signup WHERE username = ?");
         $stmt->bind_param("s", $inputUsername);
         $stmt->execute();
         $result = $stmt->get_result();
@@ -39,16 +39,16 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $user = $result->fetch_assoc();
 
             // Verify the password
-            if (password_verify($password, $user['password'])) {
+            if ($password === $user['password']) { // Compare plain text passwords
                 // Login successful
                 $successMessage = "Login successful!";
                 // Update login details in the database
-                $stmt = $connection->prepare("UPDATE users_login SET remember_me = ?, updated_at = NOW() WHERE username = ?");
+                $stmt = $connection->prepare("UPDATE donor_signup SET remember_me = ?, updated_at = NOW() WHERE username = ?");
                 $stmt->bind_param("is", $rememberMe, $inputUsername);
                 $stmt->execute();
 
                 // Redirect to the appropriate page based on the user's role
-                if ($user['role'] === 'admin') {
+                if ($user['role'] === 'admin') { // Assuming there is a 'role' column
                     header("Location: admin.php"); 
                 } else {
                     header("Location: donor.php"); 
