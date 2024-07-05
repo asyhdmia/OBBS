@@ -38,7 +38,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $user = $result->fetch_assoc();
 
             // Verify the password from donor_signup table
-            if (password_verify($password, $user['password'])) {
+            if ($password == $user['password']) { // For demonstration, using plain text comparison
                 // Login successful for donor
                 $successMessage = "Login successful!";
                 // Update login details in the donor_signup table
@@ -47,40 +47,14 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 $stmt->execute();
 
                 // Redirect to the donor page
-                header("Location: donor.php");
+                header("Location: xampp/htdocs/dashboard/OBBS/Project_obbs/sidebar-05/index.html"); // Redirect to the donor homepage
                 exit();
             } else {
                 $errorMessage = "Invalid username or password.";
             }
         } else {
-            // Check if the user exists in the users_login table and retrieve password
-            $stmt = $connection->prepare("SELECT password FROM users_login WHERE username = ?");
-            $stmt->bind_param("s", $inputUsername);
-            $stmt->execute();
-            $result = $stmt->get_result();
-
-            if ($result->num_rows > 0) {
-                $user = $result->fetch_assoc();
-
-                // Verify the password from users_login table
-                if ($password === $user['password']) {
-                    // Login successful for admin
-                    $successMessage = "Login successful!";
-                    // Update login details in the users_login table
-                    $stmt = $connection->prepare("UPDATE users_login SET remember_me = ?, updated_at = NOW() WHERE username = ?");
-                    $stmt->bind_param("is", $rememberMe, $inputUsername);
-                    $stmt->execute();
-
-                    // Redirect to the admin page
-                    header("Location: admin.php");
-                    exit();
-                } else {
-                    $errorMessage = "Invalid username or password.";
-                }
-            } else {
-                // User not found in both tables, login failed
-                $errorMessage = "Invalid username or password.";
-            }
+            // User not found in donor_signup table
+            $errorMessage = "Invalid username or password.";
         }
         $stmt->close();
     }
