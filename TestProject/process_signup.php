@@ -30,14 +30,14 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     } elseif ($password !== $confirmPassword) {
         $errorMessage = "Passwords do not match";
     } else {
-        // Hash the password before storing it in the database
-        $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
+        // Store the plain password (Not recommended)
+        $plainPassword = $password;
 
         $sql = "INSERT INTO donor_signup (username, email, password, created_at, updated_at) VALUES (?, ?, ?, NOW(), NOW())";
         $stmt = $connection->prepare($sql);
 
         // Bind parameters to prevent SQL injection
-        $stmt->bind_param("sss", $username, $email, $hashedPassword);
+        $stmt->bind_param("sss", $username, $email, $plainPassword);
 
         $result = $stmt->execute();
 
