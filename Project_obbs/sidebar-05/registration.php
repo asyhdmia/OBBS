@@ -32,18 +32,29 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
     do {
         if (empty($fullName) || empty($IC_No) || empty($Phone) || empty($Address) || empty($maritalStatus) || empty($iAgree)) {
-            $errorMessage = "All the fields are required";
+            $errorMessage = "All fields are required";
             break;
         }
 
-        $sql = "INSERT INTO registration (fullName, IC_No, Phone, Address, maritalStatus, iAgree) VALUES ('$fullName', '$IC_No', '$Phone', '$Address', '$maritalStatus', '$iAgree')";
-        $result = $connection->query($sql);
-
-        if (!$result) {
-            $errorMessage = "Invalid query: " . $connection->error;
+        // Insert into registration table
+        $sqlRegistration = "INSERT INTO registration (fullName, IC_No, Phone, Address, maritalStatus, iAgree) VALUES (?, ?, ?, ?, ?, ?)";
+        $stmt = $connection->prepare($sqlRegistration);
+        $stmt->bind_param("sssssi", $fullName, $IC_No, $Phone, $Address, $maritalStatus, $iAgree);
+        if (!$stmt->execute()) {
+            $errorMessage = "Error inserting into registration table: " . $stmt->error;
             break;
         }
 
+        // Insert into donors table
+        $sqlDonors = "INSERT INTO donors (name, ic_no, phone, address, marital_status) VALUES (?, ?, ?, ?, ?)";
+        $stmt = $connection->prepare($sqlDonors);
+        $stmt->bind_param("sssss", $fullName, $IC_No, $Phone, $Address, $maritalStatus);
+        if (!$stmt->execute()) {
+            $errorMessage = "Error inserting into donors table: " . $stmt->error;
+            break;
+        }
+
+        // If successful, reset form fields and show success message
         $fullName = "";
         $IC_No = "";
         $Phone = "";
@@ -51,8 +62,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $maritalStatus = "";
         $iAgree = "";
 
-        $successMessage = "Recipient is successfully added";
+        $successMessage = "Recipient successfully added";
 
+        // Redirect to profile page after successful insertion
         header("Location: viewProfile.php");
         exit;
 
@@ -151,31 +163,95 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
         <div class="col-12">
         <label for="maritalStatus" class="form-label">Marital Status:</label>
-        <select style="background-color: gray;" id="maritalStatus" name="maritalStatus" class="form-control">
-          <option value="Single" <?php if(isset($maritalStatus) && $maritalStatus == "Single") echo "selected"; ?>>Single</option>
-          <option value="Married" <?php if(isset($maritalStatus) && $maritalStatus == "Married") echo "selected"; ?>>Married</option>
-          <option value="Widowed" <?php if(isset($maritalStatus) && $maritalStatus == "Widowed") echo "selected"; ?>>Widowed</option>
-          <option value="Divorced" <?php if(isset($maritalStatus) && $maritalStatus == "Divorced") echo "selected"; ?>>Divorced</option>
-        </select>
-        <br>
+        <select style="background-color: gray;" class="form-control" id="maritalStatus" name="maritalStatus">
+          <option value="" <?php if (empty($maritalStatus)) echo 'selected'; ?>>--Select--</option>
+          <option value="Single" <?php if ($maritalStatus == 'Single') echo 'selected'; ?>>Single</option>
+          <option value="Married" <?php if ($maritalStatus == 'Married') echo 'selected'; ?>>Married</option>
+          <option value="Divorced" <?php if ($maritalStatus == 'Divorced') echo 'selected'; ?>>Divorced</option>
+          <option value="Widowed" <?php if ($maritalStatus == 'Widowed') echo 'selected'; ?>>Widowed</option>
+        </select><br>
+        </div>
+        
+        <div class="col-12">
+        <div class="form-check">
+        <input class="form-check-input" type="checkbox" style="background-color: gray;"  id="iAgree" name="iAgree" <?php if ($iAgree == 1) echo 'checked'; ?>>
+        <label class="form-check-label" for="iAgree">
+        I agree to donate blood as required.
+        </label>
+        </div>
         </div>
 
-        <div class="col-12">
-        <input type="checkbox" id="iAgree" name="iAgree" <?php if(isset($iAgree) && $iAgree) echo "checked"; ?>>
-        <label class="form-check-label text-secondary" for="iAgree">I agree to the terms and conditions</label><br>
+        <div class="col-12 mt-4">
+        <button type="submit" class="btn btn-primary">Register</button>
         </div>
-
-        <div class="col-12">
-        <div class="d-grid">
-        <button class="btn bsb-btn-xl btn-danger" type="submit">Register</button>
         </div>
-                </div>
-    </form>
-    </div>
+        </form>
         </div>
-      </div>
-    </div>
-  </div>
-</section>
-</body>
+        </div>
+        </div>
+        </div>
+        </div>
+        </div>
+        </div>
+        </div>
+        </div>
+        </div>
+        </div>
+        </div>
+        </div>
+        </div>
+        </div>
+        </div>
+        </div>
+        </section>
+        </div>
 </html>
+
+### DonorProfileAdmin.php
+
+```php
+<?php
+$servername = "localhost";
+$username = "root";
+$password = "";
+$database = "bloodbank";
+
+// Create connection
+$connection = new mysqli($servername, $username, $password, $database);
+
+// Check connection
+if ($connection->connect_error) {
+    die("Connection failed: " . $connection->connect_error);
+}
+
+// Fetch data from database
+$sql = "SELECT * FROM donors";
+$result = $connection->query($sql);
+
+if ($result->num_rows > 0) {
+    echo "<table border='1'>
+    <tr>
+    <th>Name</th>
+    <th>IC No</th>
+    <th>Phone</th>
+    <th>Address</th>
+    <th>Marital Status</th>
+    </tr>";
+
+    // Output data of each row
+    while($row = $result->fetch_assoc()) {
+        echo "<tr>";
+        echo "<td>" . $row['name'] . "</td>";
+        echo "<td>" . $row['ic_no'] . "</td>";
+        echo "<td>" . $row['phone'] . "</td>";
+        echo "<td>" . $row['address'] . "</td>";
+        echo "<td>" . $row['marital_status'] . "</td>";
+        echo "</tr>";
+    }
+    echo "</table>";
+} else {
+    echo "0 results";
+}
+
+$connection->close();
+?>
