@@ -150,12 +150,12 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         <label for="IC_No" class="form-label">IC No:</label>
         <input type="text" class="form-control" style="background-color: gray;" id="IC_No" name="IC_No" value="<?php echo isset($IC_No) ? $IC_No : ''; ?>"><br>
         </div>
-        
+
         <div class="col-12">
         <label for="Phone" class="form-label" >Phone:</label>
         <input type="text" class="form-control" style="background-color: gray;"  id="Phone" name="Phone" value="<?php echo isset($Phone) ? $Phone : ''; ?>"><br>
         </div>
-        
+
         <div class="col-12">
         <label for="Address" class="form-label">Address:</label>
         <input type="text" class="form-control"style="background-color: gray;"  id="Address" name="Address" value="<?php echo isset($Address) ? $Address : ''; ?>"><br>
@@ -171,7 +171,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
           <option value="Widowed" <?php if ($maritalStatus == 'Widowed') echo 'selected'; ?>>Widowed</option>
         </select><br>
         </div>
-        
+
         <div class="col-12">
         <div class="form-check">
         <input class="form-check-input" type="checkbox" style="background-color: gray;"  id="iAgree" name="iAgree" <?php if ($iAgree == 1) echo 'checked'; ?>>
