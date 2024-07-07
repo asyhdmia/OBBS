@@ -1,41 +1,42 @@
-document.addEventListener('DOMContentLoaded', async (event) => {
-    const selectElement = document.getElementById('appointment-date');
-
-    try {
-        const response = await fetch('http://localhost/OBBS/Project_obbs/sidebar-05/app.php?action=available-dates');
-        const data = await response.json();
-        data.dates.forEach(date => {
-            const option = document.createElement('option');
-            option.value = date;
-            option.textContent = date;
-            selectElement.appendChild(option);
-        });
-
-        const reminder = localStorage.getItem('appointmentDate');
-        if (reminder) {
-            document.getElementById('reminder').textContent = `You have an appointment booked on ${reminder}`;
-        }
-    } catch (error) {
-        console.error('Error fetching available dates:', error);
-    }
+document.addEventListener('DOMContentLoaded', function() {
+    fetchAvailableDates();
 });
 
-async function bookAppointment() {
-    const selectedDate = document.getElementById('appointment-date').value;
+function fetchAvailableDates() {
+    fetch('app.php?action=available-dates')
+        .then(response => response.json())
+        .then(data => {
+            if (data.dates) {
+                populateDates(data.dates);
+            } else {
+                console.error('No dates found');
+            }
+        })
+        .catch(error => console.error('Error fetching dates:', error));
+}
 
-    try {
-        const response = await fetch('http://localhost/OBBS/Project_obbs/sidebar-05/app.php', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/x-www-form-urlencoded'
-            },
-            body: `action=book-appointment&date=${selectedDate}`
-        });
-        const data = await response.json();
-        alert(data.message);
-        localStorage.setItem('appointmentDate', selectedDate);
-        document.getElementById('reminder').textContent = `You have an appointment booked on ${selectedDate}`;
-    } catch (error) {
-        console.error('Error booking appointment:', error);
-    }
+function populateDates(dates) {
+    const dateSelect = document.getElementById('appointment-date');
+    dates.forEach(date => {
+        const option = document.createElement('option');
+        option.value = date;
+        option.text = date;
+        dateSelect.appendChild(option);
+    });
+}
+
+function bookAppointment() {
+    const selectedDate = document.getElementById('appointment-date').value;
+    fetch('app.php', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/x-www-form-urlencoded',
+        },
+        body: `action=book-appointment&date=${selectedDate}`
+    })
+    .then(response => response.json())
+    .then(data => {
+        document.getElementById('reminder').innerText = data.message;
+    })
+    .catch(error => console.error('Error booking appointment:', error));
 }
