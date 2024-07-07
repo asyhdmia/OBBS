@@ -2,11 +2,7 @@
 session_start();
 error_reporting(0);
 include('includes/config.php');
-if(strlen($_SESSION['alogin'])==0)
-	{	
-header('location:index.php');
-}
-else{
+
 if(isset($_GET['del']))
 {
 $id=$_GET['del'];
@@ -32,7 +28,7 @@ $msg="Data Deleted successfully";
 	<meta name="description" content="">
 	<meta name="author" content="">
 	<meta name="theme-color" content="#3e454c">
-	
+
 	<title>BBDMS |Admin Manage Blood groups   </title>
 
 	<!-- Font awesome -->
@@ -89,7 +85,7 @@ $msg="Data Deleted successfully";
 						<div class="panel panel-default">
 							<div class="panel-heading">Listed  Blood Groups</div>
 							<div class="panel-body">
-							<?php if($error){?><div class="errorWrap"><strong>ERROR</strong>:<?php echo htmlentities($error); ?> </div><?php } 
+							<?php if($error){?><div class="errorWrap"><strong>ERROR</strong>:<?php echo htmlentities($error); ?> </div><?php }
 				else if($msg){?><div class="succWrap"><strong>SUCCESS</strong>:<?php echo htmlentities($msg); ?> </div><?php }?>
 								<table id="zctb" class="display table table-striped table-bordered table-hover" cellspacing="0" width="100%">
 									<thead>
@@ -97,8 +93,8 @@ $msg="Data Deleted successfully";
 										<th>#</th>
 												<th>Blood Groups</th>
 											<th>Creation Date</th>
-										
-										
+
+
 											<th>Action</th>
 										</tr>
 									</thead>
@@ -120,7 +116,7 @@ $cnt=1;
 if($query->rowCount() > 0)
 {
 foreach($results as $result)
-{				?>	
+{				?>
 										<tr>
 											<td><?php echo htmlentities($cnt);?></td>
 											<td><?php echo htmlentities($result->BloodGroup);?></td>
@@ -129,16 +125,16 @@ foreach($results as $result)
 <a href="manage-bloodgroup.php?del=<?php echo $result->id;?>" onclick="return confirm('Do you want to delete');"><i class="fa fa-close"></i></a></td>
 										</tr>
 										<?php $cnt=$cnt+1; }} ?>
-										
+
 									</tbody>
 								</table>
 
-						
+
 
 							</div>
 						</div>
 
-					
+
 
 					</div>
 				</div>
@@ -159,4 +155,3 @@ foreach($results as $result)
 	<script src="js/main.js"></script>
 </body>
 </html>
-<?php } ?>
