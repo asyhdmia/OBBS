@@ -43,6 +43,23 @@
         <div class="col-sm-8"><h1>Blood Donation Appointment</h1></div>
         <h5>Please choose from available dates only</h5>
         <label for="appointment-date">Select Appointment Date:</label>
+        <link href="https://calendar.google.com/calendar/scheduling-button-script.css" rel="stylesheet">
+            <script src="https://calendar.google.com/calendar/scheduling-button-script.js" async></script>
+            <script>
+            (function() {
+                var target = document.currentScript;
+                window.addEventListener('load', function() {
+                    calendar.schedulingButton.load({
+                    url: 'https://calendar.google.com/calendar/appointments/schedules/AcZssZ1s6ntNPnzbl2LXOuPWlYtyt4y9KmqwnQrAgHejADRyZYAnrZyQebVeblKMPCR9HxhEi2OkuGv0?gv=true',
+                    color: '#4285F4',
+                    label: 'Book an appointment',
+                    target,
+                    });
+                });
+            })();
+        </script>
+
+        <button type="button" class="btn btn-danger" onclick="location.href='index.html'">Back</button>
         <select id="appointment-date"></select>
         <button class="btn btn-primary" onclick="bookAppointment()">Book Appointment</button>
         <div id="reminder"></div>
