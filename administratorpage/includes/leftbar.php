@@ -9,7 +9,7 @@
 </ul>
 </li>
 <li><a href="donor-list.php"><i class="fa fa-users"></i> Donor List</a></li>
-<li><a href="blood-requests.php"><i class="fa fa-users"></i> Blood Requests</a></li>
+<li><a href="http://localhost/dashboard/OBBS/administratorpage/blood-requests.php"><i class="fa fa-users"></i> Blood Requests</a></li>
 
 			</ul>
 		</nav>

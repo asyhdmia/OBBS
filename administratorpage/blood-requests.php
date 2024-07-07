@@ -1,147 +1,215 @@
-<?php
-session_start();
-error_reporting(0);
-
-$servername = "localhost";
-$username = "root";
-$password = "";
-$database = "bloodbank";
-
-// Create connection
-$connection = new mysqli($servername, $username, $password, $database);
-
-// Check connection
-if ($connection->connect_error) {
-    die("Connection failed: " . $connection->connect_error);
-}
-?>
-<!doctype html>
-<html lang="en" class="no-js">
-
+<!DOCTYPE html>
+<html lang="en">
 <head>
-	<meta charset="UTF-8">
-	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1">
-	<meta name="description" content="">
-	<meta name="author" content="">
-	<meta name="theme-color" content="#3e454c">
-
-	<title>BBDMS | Donor List  </title>
-
-	<!-- Font awesome -->
-	<link rel="stylesheet" href="css/font-awesome.min.css">
-	<!-- Sandstone Bootstrap CSS -->
-	<link rel="stylesheet" href="css/bootstrap.min.css">
-	<!-- Bootstrap Datatables -->
-	<link rel="stylesheet" href="css/dataTables.bootstrap.min.css">
-	<!-- Bootstrap social button library -->
-	<link rel="stylesheet" href="css/bootstrap-social.css">
-	<!-- Bootstrap select -->
-	<link rel="stylesheet" href="css/bootstrap-select.css">
-	<!-- Bootstrap file input -->
-	<link rel="stylesheet" href="css/fileinput.min.css">
-	<!-- Awesome Bootstrap checkbox -->
-	<link rel="stylesheet" href="css/awesome-bootstrap-checkbox.css">
-	<!-- Admin Stye -->
-	<link rel="stylesheet" href="css/style.css">
-  <style>
-		.errorWrap {
-    padding: 10px;
-    margin: 0 0 20px 0;
-    background: #fff;
-    border-left: 4px solid #dd3d36;
-    -webkit-box-shadow: 0 1px 1px 0 rgba(0,0,0,.1);
-    box-shadow: 0 1px 1px 0 rgba(0,0,0,.1);
-}
-.succWrap{
-    padding: 10px;
-    margin: 0 0 20px 0;
-    background: #fff;
-    border-left: 4px solid #5cb85c;
-    -webkit-box-shadow: 0 1px 1px 0 rgba(0,0,0,.1);
-    box-shadow: 0 1px 1px 0 rgba(0,0,0,.1);
-}
-		</style>
-
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Recipient page</title>
+<link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
+<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<style>
+    body {
+        color: #566787;
+        background: #f5f5f5;
+		font-family: 'Roboto', sans-serif;
+	}
+    .table-responsive {
+        margin: 30px 0;
+    }
+	.table-wrapper {
+		min-width: 1000px;
+        background: #fff;
+        padding: 20px;        
+        box-shadow: 0 1px 1px rgba(0,0,0,.05);
+    }
+	.table-title {
+        padding-bottom: 10px;
+        margin: 0 0 10px;
+    }
+    .table-title h2 {
+        margin: 8px 0 0;
+        font-size: 22px;
+    }
+    .search-box {
+        position: relative;        
+        float: right;
+    }
+    .search-box input {
+        height: 34px;
+        border-radius: 20px;
+        padding-left: 35px;
+        border-color: #ddd;
+        box-shadow: none;
+    }
+	.search-box input:focus {
+		border-color: #3FBAE4;
+	}
+    .search-box i {
+        color: #a0a5b1;
+        position: absolute;
+        font-size: 19px;
+        top: 8px;
+        left: 10px;
+    }
+    table.table tr th, table.table tr td {
+        border-color: #e9e9e9;
+    }
+    table.table-striped tbody tr:nth-of-type(odd) {
+    	background-color: #fcfcfc;
+	}
+	table.table-striped.table-hover tbody tr:hover {
+		background: #f5f5f5;
+	}
+    table.table th i {
+        font-size: 13px;
+        margin: 0 5px;
+        cursor: pointer;
+    }
+    table.table td:last-child {
+        width: 140px;
+    }
+    table.table td a {
+        color: #a0a5b1;
+        display: inline-block;
+        margin: 0 5px;
+    }
+	table.table td a.view {
+        color: #03A9F4;
+    }
+    table.table td a.edit {
+        color: #FFC107;
+    }
+    table.table td a.delete {
+        color: #E34724;
+    }
+    table.table td i {
+        font-size: 19px;
+    }    
+    .pagination {
+        float: right;
+        margin: 0 0 5px;
+    }
+    .pagination li a {
+        border: none;
+        font-size: 95%;
+        width: 30px;
+        height: 30px;
+        color: #999;
+        margin: 0 2px;
+        line-height: 30px;
+        border-radius: 30px !important;
+        text-align: center;
+        padding: 0;
+    }
+    .pagination li a:hover {
+        color: #666;
+    }	
+    .pagination li.active a {
+        background: #03A9F4;
+    }
+    .pagination li.active a:hover {        
+        background: #0397d6;
+    }
+	.pagination li.disabled i {
+        color: #ccc;
+    }
+    .pagination li i {
+        font-size: 16px;
+        padding-top: 6px
+    }
+    .hint-text {
+        float: left;
+        margin-top: 6px;
+        font-size: 95%;
+    }    
+</style>
+<script>
+$(document).ready(function(){
+	$('[data-toggle="tooltip"]').tooltip();
+});
+</script>
 </head>
-
 <body>
-	<?php include('includes/header.php');?>
 
-	<div class="ts-main-content">
-		<?php include('includes/leftbar.php');?>
-		<div class="content-wrapper">
-			<div class="container-fluid">
+    <div class="container">
+        <div class="table-responsive">
+            <div class="table-wrapper">
+                <div class="table-title">
+                    <div class="row">
+					<div class="col-sm-9">
+                                <div class="back">
+                                <a class="btn btn-primary" href="http://localhost/dashboard/OBBS/administratorpage/donor-list.php" role="button" >Home</a>
+                                </div>
+                            </div>
+                        <div class="col-sm-8"><h2>Recipient <b>Details</b></h2></div>
+                        <div class="col-sm-4">
+                        <form class="search-box" method="GET" action="searchRecipient.php">
+                                <i class="material-icons">&#xE8B6;</i>
+                                <input type="text" name="search" class="form-control" placeholder="Search&hellip;">
+                            </form>
+                            <div class="col-sm-3">
+                                <div class="add">
+                                <a class="btn btn-primary" href="createRecipient.php" role="button" >Add Recipient</a>
+                                </div>
+                            </div>
 
+							
+                        </div>
+                    </div>
+                </div>
+                <table class="table table-striped table-hover table-bordered">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Name</th>
+                            <th>PhoneNo</th>
+                            <th>Description</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <?php
+                        $servername = "localhost";
+                        $username = "root";
+                        $password="";
+                        $database="bloodbank";
 
+                        $connection = new mysqli($servername,$username,$password,$database) ;
 
+                        if($connection->connect_error){
+                            die("Connection failed: ". $connection->connect_error);
+                        }
+                       
+                        $sql = "SELECT * FROM recipients";
+                        $result = $connection->query($sql);
 
-					<div class="col-md-12">
+                        if(!$result){
+                            die("Invalid query: " .$connection->error);
+                        }
 
-
-
-						<!-- Zero Configuration Table -->
-						<div class="panel panel-default">
-							<div class="panel-heading">Recipient Info</div>
-							<div class="panel-body">
-
-								<table border="1" class="table table-responsive">
-                                    <thead>
-                                         <tr>
-																					 <th>No</th>
-                                         	<th>Recipient ID</th>
-                                          <th>Recipient Name</th>
-                                          <th>Phone Number</th>
-                                          <th>Description</th>
-                                        </tr>
-                                    </thead>
-
-                                    <tbody>
-
-                                        <tr><?php
-		                                    $sql = "SELECT * FROM recipients";
-		                                    $query = $connection->query($sql);
-		                                    $cnt = 1;
-		                                    if ($query->num_rows > 0) {
-		                                        while($result = $query->fetch_assoc()) {
-		                                    ?>
-																				<td><?php echo htmlentities($cnt);?></td>
-                                        <td><?php echo htmlentities($result['ID']);?></td>
-                                        <td><?php echo htmlentities($result['name']);?></td>
-                                        <td><?php echo htmlentities($result['phoneNum']);?></td>
-                                        <td><?php echo htmlentities($result['Descrip']);?></td>
-                                        </tr>
-                                    <?php $cnt=$cnt+1;}} else {?>
-                                        <tr>
-                                            <th colspan="8" style="color:red;"> No Record found</th>
-                                        </tr>
-                                    <?php } ?>
-                                    </tbody>
-                                </table>
-
-
-
-							</div>
-						</div>
-
-
-
-					</div>
-				</div>
-
-			</div>
-		</div>
-	</div>
-
-	<!-- Loading Scripts -->
-	<script src="js/jquery.min.js"></script>
-	<script src="js/bootstrap-select.min.js"></script>
-	<script src="js/bootstrap.min.js"></script>
-	<script src="js/jquery.dataTables.min.js"></script>
-	<script src="js/dataTables.bootstrap.min.js"></script>
-	<script src="js/Chart.min.js"></script>
-	<script src="js/fileinput.js"></script>
-	<script src="js/chartData.js"></script>
-	<script src="js/main.js"></script>
+                        while($row = $result ->fetch_assoc()){
+                            echo "
+                            <tr>
+                                <td>$row[ID]</td>
+                                <td>$row[name]</td>
+                                <td>$row[phoneNum]</td>
+                                <td>$row[Descrip]</td>
+                                <td>
+                                    <a class='btn btn-primary btn-sm' href='/Project_obbs/editRecipient.php?ID=$row[ID]'>Edit</a>
+                                    <a class='btn btn-danger btn-sm' href='/Project_obbs/deleteRecipient.php?ID=$row[ID]'>Delete</a>
+                                </td>
+                            </tr>
+                            ";
+                        }
+                     ?>
+                    </tbody>
+                </table>
+            </div>
+        </div>        
+    </div>     
 </body>
 </html>
