@@ -47,7 +47,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 $stmt->execute();
 
                 // Redirect to the donor page
-                header("Location: http://localhost/dashboard/OBBS/Project_obbs/sidebar-05/index.html"); // Redirect to the donor homepage
+                header("Location: http://localhost/dashboard/obbstest/Project_obbs/sidebar-05/index.html"); // Redirect to the donor homepage
                 exit();
             } else {
                 $errorMessage = "Invalid username or password.";
@@ -72,7 +72,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                     $stmt->execute();
 
                     // Redirect to the admin page
-                    header("Location: http://localhost/dashboard/OBBS/administrator/adminpage.php"); // Replace with your admin page URL
+                    header("Location: http://localhost/dashboard/obbstest/administratorpage/donor-list.php"); // Replace with your admin page URL
                     exit();
                 } else {
                     $errorMessage = "Invalid username or password.";
