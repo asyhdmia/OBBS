@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jul 07, 2024 at 10:21 AM
+-- Generation Time: Jul 07, 2024 at 10:36 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -72,20 +72,23 @@ INSERT INTO `donors` (`id`, `name`, `ic_no`, `phone`, `address`, `marital_status
 --
 
 CREATE TABLE `donor_signup` (
-  `id_signup` varchar(255) NOT NULL,
+  `id_signup` int(11) NOT NULL,
   `username` varchar(255) NOT NULL,
   `email` varchar(255) NOT NULL,
   `password` varchar(255) NOT NULL,
   `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
-  `updated_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
+  `updated_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
+  `remember_me` int(11) NOT NULL DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `donor_signup`
 --
 
-INSERT INTO `donor_signup` (`id_signup`, `username`, `email`, `password`, `created_at`, `updated_at`) VALUES
-('donor_66817e1e1ebaa9.91873472', 'syifa', 'syifa@gmail.com', '123123', '2024-06-30 15:47:42', '2024-06-30 15:57:43');
+INSERT INTO `donor_signup` (`id_signup`, `username`, `email`, `password`, `created_at`, `updated_at`, `remember_me`) VALUES
+(7, 'nrasdmia', 'nrasdmia@gmail.com', '000000', '2024-07-05 05:40:15', '2024-07-05 05:40:15', 0),
+(8, 'mia', '333@gmail.com', '777', '2024-07-05 06:17:40', '2024-07-07 08:08:07', 1),
+(9, 'syifa', 'kelantan@gmail.com', '777', '2024-07-07 08:09:34', '2024-07-07 08:10:14', 1);
 
 -- --------------------------------------------------------
 
@@ -155,6 +158,13 @@ CREATE TABLE `users_login` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
+-- Dumping data for table `users_login`
+--
+
+INSERT INTO `users_login` (`id_login`, `username`, `password`, `role`, `remember_me`, `verifyLogin`, `created_at`, `updated_at`) VALUES
+('1', 'hospitaladmin', '666', 'admin', 1, 0, '2024-07-05 07:51:54', '2024-07-05 08:20:32');
+
+--
 -- Indexes for dumped tables
 --
 
@@ -169,13 +179,6 @@ ALTER TABLE `appointments`
 --
 ALTER TABLE `donors`
   ADD PRIMARY KEY (`id`);
-
---
--- Indexes for table `donor_signup`
---
-ALTER TABLE `donor_signup`
-  ADD PRIMARY KEY (`id_signup`),
-  ADD UNIQUE KEY `email` (`email`);
 
 --
 -- Indexes for table `recipients`
