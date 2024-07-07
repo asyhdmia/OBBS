@@ -139,15 +139,20 @@
             <div class="table-wrapper">
                 <div class="table-title">
                     <div class="row">
+                    <div class="col-sm-9">
+                                <div class="back">
+                                <a class="btn btn-primary" href="http://localhost/dashboard/OBBS/administratorpage/donor-list.php" role="button" >Home</a>
+                                </div>
+                            </div>
                         <div class="col-sm-8"><h2>Recipient <b>Search Results</b></h2></div>
                         <div class="col-sm-4">
-                            <form class="search-box" method="GET" action="searchRecipient.php">
+                            <form class="search-box" method="GET" action="http://localhost/dashboard/OBBS/administratorpage/includes/searchRecipient.php">
                                 <i class="material-icons">&#xE8B6;</i>
                                 <input type="text" name="search" class="form-control" placeholder="Search&hellip;">
                             </form>
                             <div class="col-sm-3">
                                 <div class="add">
-                                <a class="btn btn-primary" href="/Project_obbs/createRecipient.php" role="button" >Add Recipient</a>
+                                <a class="btn btn-primary" href="http://localhost/dashboard/OBBS/administratorpage/includes/createRecipient.php" role="button" >Add Recipient</a>
                                 </div>
                             </div>
                         </div>
