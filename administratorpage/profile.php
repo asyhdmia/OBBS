@@ -2,30 +2,6 @@
 session_start();
 error_reporting(0);
 include('includes/config.php');
-if(strlen($_SESSION['alogin'])==0)
-	{	
-header('location:index.php');
-}
-else{
-// Code for change password	
-if(isset($_POST['submit']))
-  {
-    $adminid=$_SESSION['alogin'];
-    $AName=$_POST['adminname'];
-  $mobno=$_POST['mobilenumber'];
-  $email=$_POST['email'];
-  $sql="update tbladmin set AdminName=:adminname,MobileNumber=:mobilenumber,Email=:email where UserName=:aid";
-     $query = $dbh->prepare($sql);
-     $query->bindParam(':adminname',$AName,PDO::PARAM_STR);
-     $query->bindParam(':email',$email,PDO::PARAM_STR);
-     $query->bindParam(':mobilenumber',$mobno,PDO::PARAM_STR);
-     $query->bindParam(':aid',$adminid,PDO::PARAM_STR);
-$query->execute();
-
-    echo '<script>alert("Your profile has been updated")</script>';
-    echo "<script>window.location.href ='profile.php'</script>";
-
-  }
 ?>
 
 <!doctype html>
@@ -38,7 +14,7 @@ $query->execute();
 	<meta name="description" content="">
 	<meta name="author" content="">
 	<meta name="theme-color" content="#3e454c">
-	
+
 	<title>BBDMS | Admin Change Password</title>
 
 	<!-- Font awesome -->
@@ -89,7 +65,7 @@ $query->execute();
 
 				<div class="row">
 					<div class="col-md-12">
-					
+
 						<h2 class="page-title">Admin Profile</h2>
 
 						<div class="row">
@@ -98,11 +74,11 @@ $query->execute();
 									<div class="panel-heading">Form fields</div>
 									<div class="panel-body">
 										<form method="post" class="form-horizontal" onSubmit="return valid();">
-										
-											
+
+
   	        	 <?php
 
-$sql="SELECT * from  tbladmin";
+$sql="SELECT * from  users_login";
 $query = $dbh -> prepare($sql);
 $query->execute();
 $results=$query->fetchAll(PDO::FETCH_OBJ);
@@ -111,51 +87,36 @@ if($query->rowCount() > 0)
 {
 foreach($results as $row)
 {               ?>
-											
+
 											<div class="hr-dashed"></div>
-											
+
 											<div class="form-group">
-												<label class="col-sm-4 control-label">Admin Name</label>
+												<label class="col-sm-4 control-label">Admin Username  </label>
 												<div class="col-sm-8">
-													<input type="text" name="adminname" value="<?php  echo $row->AdminName;?>" class="form-control" required='true'>
+													<input type="text" name="adminname" value="<?php  echo $row->username;?>" class="form-control" readonly="">
 												</div>
 											</div>
 											<div class="hr-dashed"></div>
 
 											<div class="form-group">
-												<label class="col-sm-4 control-label">User Name</label>
+												<label class="col-sm-4 control-label">Password</label>
 												<div class="col-sm-8">
-													<input type="text" name="username" value="<?php  echo $row->UserName;?>" class="form-control" readonly="">
+													<input type="text" name="username" value="<?php  echo $row->password;?>" class="form-control" readonly="">
 												</div>
 											</div>
 											<div class="hr-dashed"></div>
 										<div class="form-group">
-												<label class="col-sm-4 control-label">Contact Number</label>
+												<label class="col-sm-4 control-label">role</label>
 												<div class="col-sm-8">
-													<input type="text" name="mobilenumber" value="<?php  echo $row->MobileNumber;?>"  class="form-control" maxlength='10' required='true' pattern="[0-9]+">
+													<input type="text" name="mobilenumber" value="<?php  echo $row->role;?>"  class="form-control" readonly="">
 												</div>
 											</div>
 											<div class="hr-dashed"></div>
-											<div class="form-group">
-												<label class="col-sm-4 control-label">Email</label>
-												<div class="col-sm-8">
-													<input type="email" name="email" value="<?php  echo $row->Email;?>" class="form-control" required='true'>
-												</div>
-											</div>
-											<div class="hr-dashed"></div>
-								<div class="hr-dashed"></div>
-											<div class="form-group">
-												<label class="col-sm-4 control-label">Admin Registration Date</label>
-												<div class="col-sm-8">
-													 <input type="text" name="" value="<?php  echo $row->AdminRegdate;?>" readonly="" class="form-control">
-												</div>
-											</div>
 											<div class="hr-dashed"></div>
 											<?php $cnt=$cnt+1;}} ?>
 											<div class="form-group">
 												<div class="col-sm-8 col-sm-offset-4">
-								
-													<button class="btn btn-primary" name="submit" type="submit">Save changes</button>
+
 												</div>
 											</div>
 
@@ -164,15 +125,15 @@ foreach($results as $row)
 									</div>
 								</div>
 							</div>
-							
+
 						</div>
-						
-					
+
+
 
 					</div>
 				</div>
-				
-			
+
+
 			</div>
 		</div>
 	</div>
@@ -191,4 +152,3 @@ foreach($results as $row)
 </body>
 
 </html>
-<?php } ?>
