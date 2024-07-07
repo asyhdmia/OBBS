@@ -312,5 +312,44 @@
   <script src="assets/js/main.js"></script>
 
 </body>
+<script>
+  window.onbeforeunload = function () {
+      window.scrollTo(0, 0);
+  };
+  
+  // Smooth scrolling for navigation links
+  const navLinks = document.querySelectorAll('nav ul li a');
+  navLinks.forEach(link => {
+      link.addEventListener('click', (e) => {
+          e.preventDefault(); // Prevent default link behavior
+          const targetId = e.target.getAttribute('href');
+          const targetSection = document.querySelector(targetId);
 
+          // Calculate the offset position (e.g., height of the fixed nav)
+          const offset = 70; // Adjust based on your fixed header's height
+          const sectionTop = targetSection.getBoundingClientRect().top + window.pageYOffset - offset;
+
+          // Scroll to the offset position
+          window.scrollTo({
+              top: sectionTop,
+              behavior: 'smooth'
+          });
+      });
+  });
+
+  // Additional code to handle smooth scrolling for the "More About Me" link
+  document.querySelector(".about_me").addEventListener("click", function(e) {
+      e.preventDefault();
+      const targetId = this.getAttribute("href");
+      const targetSection = document.querySelector(targetId);
+
+      const offset = 70; // Adjust based on your fixed header's height
+      const sectionTop = targetSection.getBoundingClientRect().top + window.pageYOffset - offset;
+
+      window.scrollTo({
+          top: sectionTop,
+          behavior: "smooth"
+      });
+  });
+</script>
 </html>
