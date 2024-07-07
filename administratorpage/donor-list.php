@@ -34,32 +34,6 @@ if ($connection->connect_error) {
         }
     }
 
-    if(isset($_REQUEST['hidden'])) {
-        $eid = intval($_GET['hidden']);
-        $status = 0;
-        $sql = "UPDATE donors SET status=? WHERE id=?";
-        $stmt = $connection->prepare($sql);
-        $stmt->bind_param('ii', $status, $eid);
-        if ($stmt->execute()) {
-            $msg = "Donor details hidden successfully";
-        } else {
-            $error = "Error hiding details: " . $stmt->error;
-        }
-    }
-
-    if(isset($_REQUEST['public'])) {
-        $aeid = intval($_GET['public']);
-        $status = 1;
-        $sql = "UPDATE donors SET status=? WHERE id=?";
-        $stmt = $connection->prepare($sql);
-        $stmt->bind_param('ii', $status, $aeid);
-        if ($stmt->execute()) {
-            $msg = "Donor details public";
-        } else {
-            $error = "Error making details public: " . $stmt->error;
-        }
-    }
-
     if(isset($_REQUEST['del'])) {
         $did = intval($_GET['del']);
         $sql = "DELETE FROM donors WHERE id=?";

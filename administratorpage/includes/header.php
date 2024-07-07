@@ -1,5 +1,5 @@
 <div class="brand clearfix">
-	<a href="dashboard.php" style="font-size: 20px; padding-top:1%; color:#fff">BloodBank & Donor Management System </a>
+	<a href="dashboard.php" style="font-size: 20px; padding-top:1%; color:#fff">Online BloodBank System </a>
 		<span class="menu-btn"><i class="fa fa-bars"></i></span>
 		<ul class="ts-profile-nav">
 
