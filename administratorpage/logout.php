@@ -10,5 +10,5 @@ if (ini_get("session.use_cookies")) {
 }
 unset($_SESSION['submit']);
 session_destroy();
-header("location:http://localhost/dashboard/obbstest/TestProject/process_login.php");
+header("location:http://localhost/dashboard/OBBS/TestProject/process_login.php");
 ?>
