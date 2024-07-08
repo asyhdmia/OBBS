@@ -30,7 +30,7 @@ blood-request.php
 		font-family: 'Roboto', sans-serif;
 	}
     .table-responsive {
-        margin: 70px 0;
+        margin: 100px 0;
     }
 	.table-wrapper {
 		min-width: 1000px;

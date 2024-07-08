@@ -20,7 +20,7 @@ if ($connection->connect_error) {
 
 if ($_SERVER['REQUEST_METHOD'] == 'GET') {
     if (!isset($_GET["ID"])) {
-        header("location:http://localhost/dashboard/OBBS/administratorpage/blood-request.php");
+        header("location:http://localhost/dashboard/OBBS/administratorpage/blood-requests.php");
         exit;
     }
 
@@ -34,7 +34,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
     $row = $result->fetch_assoc();
 
     if (!$row) {
-        header("location:http://localhost/dashboard/OBBS/administratorpage/blood-request.php");
+        header("location:http://localhost/dashboard/OBBS/administratorpage/blood-requests.php");
         exit;
     }
 
