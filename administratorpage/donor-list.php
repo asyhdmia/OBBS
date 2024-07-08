@@ -23,7 +23,7 @@ if ($connection->connect_error) {
         $Address = $_POST['Address'];
         $maritalStatus = $_POST['maritalStatus'];
 
-        $sql = "UPDATE registration SET name=?, ic_no=?, phone=?, address=?, marital_status=? WHERE id=?";
+        $sql = "UPDATE registration SET fullName=?, IC_No=?, Phone=?, Address=?, maritalStatus=? WHERE id=?";
         $stmt = $connection->prepare($sql);
         $stmt->bind_param('sssssi', $fullName, $IC_No, $Phone, $Address, $maritalStatus, $id);
 
@@ -36,7 +36,7 @@ if ($connection->connect_error) {
 
     if(isset($_REQUEST['del'])) {
         $did = intval($_GET['del']);
-        $sql = "DELETE FROM donors WHERE id=?";
+        $sql = "DELETE FROM registration WHERE id=?";
         $stmt = $connection->prepare($sql);
         $stmt->bind_param('i', $did);
         if ($stmt->execute()) {
@@ -76,6 +76,7 @@ if ($connection->connect_error) {
                     <h2 class="page-title">Manage Registered Donors</h2>
                     <div class="panel panel-default">
                         <div class="panel-heading">Donor Info</div>
+                        <a href="download-records.php" style="font-size:16px;" class="btn btn-info">Download Donor List</a>
                         <div class="panel-body">
                             <?php if($msg) { ?><div class="succWrap"><strong>SUCCESS</strong>:<?php echo htmlentities($msg); ?> </div><?php } ?>
                             <?php if($error) { ?><div class="errorWrap"><strong>ERROR</strong>:<?php echo htmlentities($error); ?> </div><?php } ?>
