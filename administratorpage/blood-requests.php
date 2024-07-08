@@ -1,3 +1,6 @@
+blood-request.php
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -9,6 +12,15 @@
 <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
+<link rel="stylesheet" href="css/font-awesome.min.css">
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/dataTables.bootstrap.min.css">
+    <link rel="stylesheet" href="css/bootstrap-social.css">
+    <link rel="stylesheet" href="css/bootstrap-select.css">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/chart.css">
+
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 <style>
@@ -134,17 +146,14 @@ $(document).ready(function(){
 </script>
 </head>
 <body>
-
+<?php include('includes/header.php');?>
+    <div class="ts-main-content">
+    <?php include('includes/leftbar.php');?>
     <div class="container">
         <div class="table-responsive">
             <div class="table-wrapper">
                 <div class="table-title">
                     <div class="row">
-					<div class="col-sm-9">
-                                <div class="back">
-                                <a class="btn btn-primary" href="http://localhost/dashboard/OBBS/administratorpage/donor-list.php" role="button" >Home</a>
-                                </div>
-                            </div>
                         <div class="col-sm-8"><h2>Recipient <b>Details</b></h2></div>
                         <div class="col-sm-4">
                         <form class="search-box" method="GET" action="http://localhost/dashboard/OBBS/administratorpage/includes/searchRecipient.php">
