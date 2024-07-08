@@ -63,9 +63,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST'){
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js"></script>
 </head>
 <body>
-  <?php include('header.php');?>
-  <?php include('leftbar.php');?>
 
+<?php include('includes/header.php');?>
+    <div class="ts-main-content">
+    <?php include('includes/leftbar.php');?>
     <div class="container my-5">
         <h2>New Recipient</h2>
 
