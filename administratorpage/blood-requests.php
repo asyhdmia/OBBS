@@ -33,7 +33,7 @@ blood-request.php
         margin: 100px 0;
     }
 	.table-wrapper {
-		min-width: 1000px;
+		min-width: 800px;
         background: #fff;
         padding: 20px;        
         box-shadow: 0 1px 1px rgba(0,0,0,.05);
