@@ -1,5 +1,3 @@
-searchRecipient.php
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -145,7 +143,7 @@ searchRecipient.php
     </script>
 </head>
 <body>
-    
+
     <div class="container">
         <div class="table-responsive">
             <div class="table-wrapper">
