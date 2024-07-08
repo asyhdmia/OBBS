@@ -64,9 +64,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST'){
 </head>
 <body>
 
-<?php include('includes/header.php');?>
-    <div class="ts-main-content">
-    <?php include('includes/leftbar.php');?>
     <div class="container my-5">
         <h2>New Recipient</h2>
 
