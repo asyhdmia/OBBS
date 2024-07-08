@@ -65,7 +65,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
 
         $successMessage = "Recipient has been updated";
 
-        header("location: http://localhost/dashboard/OBBS/administratorpage/request-blood.php");
+        header("location: http://localhost/dashboard/OBBS/administratorpage/blood-requests.php");
         exit;
     } while (true);
 }
