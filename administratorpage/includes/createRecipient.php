@@ -37,7 +37,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST'){
 
         $successMessage = "Recipient have succesfully added";
 
-        header("location:/Project_obbs/recipientPage.php");
+        header("location:http://localhost/dashboard/OBBS/administratorpage/includes/request-blood.php");
         exit;
 
     }while(false);
@@ -121,7 +121,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST'){
                 <button type = "submit" class="btn btn-primary"> Submit</button>
             </div>
             <div class="offset-sm-3 col-sm-3 d-grid">
-               <a class="btn btn-outline-primary" href="/Project_obbs/RecipientPage.php" role="button">Cancel</a>
+               <a class="btn btn-outline-primary" href="http://localhost/dashboard/OBBS/administratorpage/request-blood.php" role="button">Cancel</a>
             </div>
         </div>
 </form>

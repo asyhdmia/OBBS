@@ -208,8 +208,8 @@ $(document).ready(function(){
                                 <td>$row[phoneNum]</td>
                                 <td>$row[Descrip]</td>
                                 <td>
-                                    <a class='btn btn-primary btn-sm' href='/Project_obbs/editRecipient.php?ID=$row[ID]'>Edit</a>
-                                    <a class='btn btn-danger btn-sm' href='/Project_obbs/deleteRecipient.php?ID=$row[ID]'>Delete</a>
+                                    <a class='btn btn-primary btn-sm' href='http://localhost/dashboard/OBBS/administratorpage/includes/editRecipient.php?ID=$row[ID]'>Edit</a>
+                                    <a class='btn btn-danger btn-sm' href='http://localhost/dashboard/OBBS/administratorpage/includes/deleteRecipient.php?ID=$row[ID]'>Delete</a>
                                 </td>
                             </tr>
                             ";

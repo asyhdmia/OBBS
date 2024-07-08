@@ -14,6 +14,6 @@ $connection->query($sql);
 
 }
 
-header("location: /Project_obbs/recipientPage.php");
+header("location: http://localhost/dashboard/OBBS/administratorpage/includes/request-blood.php");
 exit;
 ?>
