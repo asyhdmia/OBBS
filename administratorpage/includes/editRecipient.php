@@ -34,7 +34,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
     $row = $result->fetch_assoc();
 
     if (!$row) {
-        header("location: /Project_obbs/recipientPage.php");
+        header("http://localhost/dashboard/OBBS/administratorpage/blood.php");
         exit;
     }
 
