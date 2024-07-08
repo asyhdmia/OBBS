@@ -66,8 +66,11 @@ $conn->close();
           <a href="viewProfile.php"><span class="fa fa-user mr-3"></span> Profile</a>
         </li>
         <li>
-          <a href="#"><span class="fa fa-book mr-3"></span> Manual</a>
-        </li>
+              <a href="manual.html"><span class="fa fa-book mr-3"></span> Manual</a>
+	          </li>
+			  <li>
+				<a href="http://localhost/dashboard/OBBS/Homepage/index.html"><span class="fa fa-sign-out mr-3"></span>Logout</a>
+			</li>
       </ul>
     </div>
   </nav>
