@@ -37,7 +37,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST'){
 
         $successMessage = "Recipient have succesfully added";
 
-        header("location:http://localhost/dashboard/OBBS/administratorpage/includes/request-blood.php");
+        header("location:http://localhost/dashboard/OBBS/administratorpage/includes/blood-requests.php");
         exit;
 
     }while(false);
