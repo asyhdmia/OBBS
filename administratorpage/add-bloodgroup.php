@@ -2,16 +2,11 @@
 session_start();
 error_reporting(0);
 include('includes/config.php');
-if(strlen($_SESSION['alogin'])==0)
-	{	
-header('location:index.php');
-}
-else{
-// Code for change password	
+
 if(isset($_POST['submit']))
 {
 $bloodgroup=$_POST['bloodgroup'];
-$sql="INSERT INTO  tblbloodgroup(BloodGroup) VALUES(:bloodgroup)";
+$sql="INSERT INTO  bloodgroup(bloodType) VALUES(:bloodgroup)";
 $query = $dbh->prepare($sql);
 $query->bindParam(':bloodgroup',$bloodgroup,PDO::PARAM_STR);
 $query->execute();
@@ -20,7 +15,7 @@ if($lastInsertId)
 {
 $msg="Blood Group Created successfully";
 }
-else 
+else
 {
 $error="Something went wrong. Please try again";
 }
@@ -38,7 +33,7 @@ $error="Something went wrong. Please try again";
 	<meta name="description" content="">
 	<meta name="author" content="">
 	<meta name="theme-color" content="#3e454c">
-	
+
 	<title>BBDMS | Admin add-bloodgroup</title>
 
 	<!-- Font awesome -->
@@ -88,7 +83,7 @@ $error="Something went wrong. Please try again";
 
 				<div class="row">
 					<div class="col-md-12">
-					
+
 						<h2 class="page-title">Add Blood Group </h2>
 
 						<div class="row">
@@ -97,9 +92,9 @@ $error="Something went wrong. Please try again";
 									<div class="panel-heading">Form fields</div>
 									<div class="panel-body">
 										<form method="post" name="chngpwd" class="form-horizontal" onSubmit="return valid();">
-										
-											
-  	        	  <?php if($error){?><div class="errorWrap"><strong>ERROR</strong>:<?php echo htmlentities($error); ?> </div><?php } 
+
+
+  	        	  <?php if($error){?><div class="errorWrap"><strong>ERROR</strong>:<?php echo htmlentities($error); ?> </div><?php }
 				else if($msg){?><div class="succWrap"><strong>SUCCESS</strong>:<?php echo htmlentities($msg); ?> </div><?php }?>
 											<div class="form-group">
 												<label class="col-sm-4 control-label">Blood Group</label>
@@ -108,13 +103,13 @@ $error="Something went wrong. Please try again";
 												</div>
 											</div>
 											<div class="hr-dashed"></div>
-											
-										
-								
-											
+
+
+
+
 											<div class="form-group">
 												<div class="col-sm-8 col-sm-offset-4">
-								
+
 													<button class="btn btn-primary" name="submit" type="submit">Submit</button>
 												</div>
 											</div>
@@ -124,15 +119,15 @@ $error="Something went wrong. Please try again";
 									</div>
 								</div>
 							</div>
-							
+
 						</div>
-						
-					
+
+
 
 					</div>
 				</div>
-				
-			
+
+
 			</div>
 		</div>
 	</div>
@@ -151,4 +146,3 @@ $error="Something went wrong. Please try again";
 </body>
 
 </html>
-<?php } ?>

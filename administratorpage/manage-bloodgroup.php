@@ -6,7 +6,7 @@ include('includes/config.php');
 if(isset($_GET['del']))
 {
 $id=$_GET['del'];
-$sql = "delete from tblbloodgroup  WHERE id=:id";
+$sql = "delete from bloodgroup  WHERE id=:id";
 $query = $dbh->prepare($sql);
 $query -> bindParam(':id',$id, PDO::PARAM_STR);
 $query -> execute();
@@ -108,7 +108,7 @@ $msg="Data Deleted successfully";
 									</tfoot>
 									<tbody>
 
-<?php $sql = "SELECT * from  tblbloodgroup ";
+<?php $sql = "SELECT * from  bloodgroup ";
 $query = $dbh -> prepare($sql);
 $query->execute();
 $results=$query->fetchAll(PDO::FETCH_OBJ);
@@ -119,8 +119,8 @@ foreach($results as $result)
 {				?>
 										<tr>
 											<td><?php echo htmlentities($cnt);?></td>
-											<td><?php echo htmlentities($result->BloodGroup);?></td>
-											<td><?php echo htmlentities($result->PostingDate);?></td>
+											<td><?php echo htmlentities($result->bloodType);?></td>
+											<td><?php echo htmlentities($result->postingDate);?></td>
 <td>
 <a href="manage-bloodgroup.php?del=<?php echo $result->id;?>" onclick="return confirm('Do you want to delete');"><i class="fa fa-close"></i></a></td>
 										</tr>
