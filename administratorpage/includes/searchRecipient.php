@@ -145,9 +145,7 @@ searchRecipient.php
     </script>
 </head>
 <body>
-<?php include('includes/header.php');?>
-    <div class="ts-main-content">
-    <?php include('includes/leftbar.php');?>
+    
     <div class="container">
         <div class="table-responsive">
             <div class="table-wrapper">
