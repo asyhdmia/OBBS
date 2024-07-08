@@ -1,3 +1,6 @@
+blood-request.php
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -32,7 +35,7 @@
 	.table-wrapper {
 		min-width: 500px;
         background: #fff;
-        padding: 100px;        
+        padding: 100px;
         box-shadow: 0 1px 1px rgba(0,0,0,.05);
     }
 	.table-title {
@@ -44,7 +47,7 @@
         font-size: 22px;
     }
     .search-box {
-        position: relative;        
+        position: relative;
         float: right;
     }
     .search-box input {
@@ -97,7 +100,7 @@
     }
     table.table td i {
         font-size: 19px;
-    }    
+    }
     .pagination {
         float: right;
         margin: 0 0 5px;
@@ -116,11 +119,11 @@
     }
     .pagination li a:hover {
         color: #666;
-    }	
+    }
     .pagination li.active a {
         background: #03A9F4;
     }
-    .pagination li.active a:hover {        
+    .pagination li.active a:hover {
         background: #0397d6;
     }
 	.pagination li.disabled i {
@@ -134,7 +137,7 @@
         float: left;
         margin-top: 6px;
         font-size: 95%;
-    }    
+    }
 </style>
 <script>
 $(document).ready(function(){
@@ -163,7 +166,7 @@ $(document).ready(function(){
                                 </div>
                             </div>
 
-							
+
                         </div>
                     </div>
                 </div>
@@ -189,7 +192,7 @@ $(document).ready(function(){
                         if($connection->connect_error){
                             die("Connection failed: ". $connection->connect_error);
                         }
-                       
+
                         $sql = "SELECT * FROM recipients";
                         $result = $connection->query($sql);
 
@@ -215,7 +218,16 @@ $(document).ready(function(){
                     </tbody>
                 </table>
             </div>
-        </div>        
-    </div>     
+        </div>
+    </div>
+    <script src="js/jquery.min.js"></script>
+    <script src="js/bootstrap-select.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/jquery.dataTables.min.js"></script>
+    <script src="js/dataTables.bootstrap.min.js"></script>
+    <script src="js/Chart.min.js"></script>
+    <script src="js/fileinput.js"></script>
+    <script src="js/chartData.js"></script>
+    <script src="js/main.js"></script>
 </body>
 </html>
