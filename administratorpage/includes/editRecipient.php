@@ -142,7 +142,7 @@ $connection->close();
                 <button type="submit" class="btn btn-primary">Submit</button>
             </div>
             <div class="col-sm-3 d-grid">
-                <a class="btn btn-outline-primary" href="http://localhost/dashboard/OBBS/administratorpage/request-blood.php" role="button">Cancel</a>
+                <a class="btn btn-outline-primary" href="http://localhost/dashboard/OBBS/administratorpage/blood-requests.php" role="button">Cancel</a>
             </div>
         </div>
     </form>
